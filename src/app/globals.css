@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: light;
+
   --background: #fffaf5;
   --foreground: #292524;
 
@@ -17,25 +19,6 @@
   --border: #eadfd7;
 
   --muted: #78716c;
-}
-
-.dark {
-  --background: #211a19;
-  --foreground: #fff7ed;
-
-  --primary: #f08062;
-  --primary-hover: #ff9475;
-
-  --secondary: #43b8a9;
-  --secondary-hover: #55c9ba;
-
-  --accent: #f4a261;
-  --accent-light: #3a2a21;
-
-  --card: #302523;
-  --border: #493b38;
-
-  --muted: #c8bbb5;
 }
 
 * {
