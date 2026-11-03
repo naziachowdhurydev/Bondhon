@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useState } from "react";
 import {
   CalendarDays,
-  CircleUserRound,
   HeartHandshake,
   Info,
   LogIn,
@@ -57,7 +56,7 @@ const MobileMenu = () => {
         type="button"
         onClick={() => setIsOpen(true)}
         aria-label="Open navigation menu"
-        className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)] text-[var(--foreground)] transition-colors duration-200 hover:border-[var(--primary)] hover:bg-[var(--accent-light)] hover:text-[var(--primary)]"
+        className="flex h-10 w-10 items-center justify-center rounded-lg border border-(--border) text-(--foreground) transition-colors duration-200 hover:border-(--primary) hover:bg-(--accent-light) hover:text-(--primary)"
       >
         <Menu size={22} />
       </button>
@@ -70,21 +69,21 @@ const MobileMenu = () => {
         >
           {/* Mobile Panel */}
           <aside
-            className="absolute right-0 top-0 flex h-full w-[85%] max-w-sm flex-col bg-[var(--background)] shadow-2xl"
+            className="absolute right-0 top-0 flex h-full w-[85%] max-w-sm flex-col bg-(--background) shadow-2xl"
             onClick={(event) => event.stopPropagation()}
           >
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-[var(--border)] px-5 py-4">
+            <div className="flex items-center justify-between border-b border-(--border) px-5 py-4">
               <Link
                 href="/"
                 onClick={closeMenu}
                 className="flex items-center gap-2"
               >
-                <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--primary)] text-white">
+                <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-(--primary) text-white">
                   <HeartHandshake size={19} />
                 </span>
 
-                <span className="text-lg font-bold text-[var(--foreground)]">
+                <span className="text-lg font-bold text-(--foreground)">
                   Bondhon
                 </span>
               </Link>
@@ -93,7 +92,7 @@ const MobileMenu = () => {
                 type="button"
                 onClick={closeMenu}
                 aria-label="Close navigation menu"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-[var(--muted)] transition-colors hover:bg-[var(--accent-light)] hover:text-[var(--primary)]"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-(--muted) transition-colors hover:bg-(--accent-light) hover:text-(--primary)"
               >
                 <X size={21} />
               </button>
@@ -101,7 +100,7 @@ const MobileMenu = () => {
 
             {/* Navigation */}
             <nav className="flex-1 overflow-y-auto px-4 py-6">
-              <p className="mb-3 px-3 text-xs font-semibold uppercase tracking-widest text-[var(--muted)]">
+              <p className="mb-3 px-3 text-xs font-semibold uppercase tracking-widest text-(--muted)">
                 Explore Bondhon
               </p>
 
@@ -114,7 +113,7 @@ const MobileMenu = () => {
                       key={item.href}
                       href={item.href}
                       onClick={closeMenu}
-                      className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-[var(--foreground)] transition-all duration-200 hover:bg-[var(--accent-light)] hover:pl-4 hover:text-[var(--primary)]"
+                      className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-(--foreground) transition-all duration-200 hover:bg-(--accent-light) hover:pl-4 hover:text-(--primary)"
                     >
                       <Icon size={19} />
                       {item.label}
@@ -125,12 +124,12 @@ const MobileMenu = () => {
             </nav>
 
             {/* Authentication Actions */}
-            <div className="border-t border-[var(--border)] p-4">
+            <div className="border-t border-(--border) p-4">
               <div className="grid gap-2">
                 <Link
                   href="/login"
                   onClick={closeMenu}
-                  className="flex items-center justify-center gap-2 rounded-xl border border-[var(--border)] px-4 py-3 text-sm font-semibold text-[var(--foreground)] transition-colors duration-200 hover:border-[var(--primary)] hover:bg-[var(--accent-light)] hover:text-[var(--primary)]"
+                  className="flex items-center justify-center gap-2 rounded-xl border border-(--border) px-4 py-3 text-sm font-semibold text-(--foreground) transition-colors duration-200 hover:border-(--primary) hover:bg-(--accent-light) hover:text-(--primary)"
                 >
                   <LogIn size={17} />
                   Log In
@@ -139,14 +138,14 @@ const MobileMenu = () => {
                 <Link
                   href="/signup"
                   onClick={closeMenu}
-                  className="flex items-center justify-center gap-2 rounded-xl bg-[var(--primary)] px-4 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-[var(--primary-hover)] hover:shadow-md"
+                  className="flex items-center justify-center gap-2 rounded-xl bg-(--primary) px-4 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-(--primary-hover) hover:shadow-md"
                 >
                   <UserPlus size={17} />
                   Create Account
                 </Link>
               </div>
 
-              <p className="mt-4 text-center text-xs leading-5 text-[var(--muted)]">
+              <p className="mt-4 text-center text-xs leading-5 text-(--muted)">
                 Join Bondhon and take part in meaningful community activities.
               </p>
             </div>
