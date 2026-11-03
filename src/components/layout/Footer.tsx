@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CurrentYear from "./CurrentYear";
 import {
   HeartHandshake,
   ArrowRight,
@@ -137,7 +138,7 @@ const Footer = () => {
         {/* Bottom Footer */}
         <div className="flex flex-col items-center justify-between gap-5 text-center sm:flex-row sm:text-left">
           <p className="text-sm text-[#BFAFA8]">
-            © {new Date().getFullYear()} Bondhon. All rights reserved.
+            © <CurrentYear /> Bondhon. All rights reserved.
           </p>
 
           <p className="flex items-center gap-2 text-sm text-[#BFAFA8]">

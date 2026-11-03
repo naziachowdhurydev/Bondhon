@@ -1,9 +1,13 @@
 @import "tailwindcss";
 
+/* ========================================
+   BONDHON GLOBAL THEME
+======================================== */
+
 :root {
   color-scheme: light;
 
-  --background: #fffaf5;
+  --background: #fff8f3;
   --foreground: #292524;
 
   --primary: #e76f51;
@@ -16,10 +20,88 @@
   --accent-light: #fff0df;
 
   --card: #ffffff;
-  --border: #eadfd7;
+  --card-hover: #fffaf6;
 
+  --border: #eadfd7;
   --muted: #78716c;
+  --muted-background: #f5ece5;
+
+  --success: #2a9d8f;
+  --error: #dc5555;
+
+  --footer: #211a19;
 }
+
+/* ========================================
+   DARK THEME
+======================================== */
+
+.dark {
+  color-scheme: dark;
+
+  --background: #211a19;
+  --foreground: #fff8f3;
+
+  --primary: #f08062;
+  --primary-hover: #ff9475;
+
+  --secondary: #43b8a9;
+  --secondary-hover: #55c9ba;
+
+  --accent: #f4a261;
+  --accent-light: #3a2a21;
+
+  --card: #302523;
+  --card-hover: #3a2d2a;
+
+  --border: #493b38;
+  --muted: #c8bbb5;
+  --muted-background: #302523;
+
+  --success: #43b8a9;
+  --error: #ff7777;
+
+  --footer: #171211;
+}
+
+/* ========================================
+   TAILWIND CSS V4 THEME TOKENS
+======================================== */
+
+/* Tailwind CSS v4 directive; disable generic unknown-at-rule linting here. */
+/* stylelint-disable at-rule-no-unknown */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
+
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-muted-background: var(--muted-background);
+
+  --color-success: var(--success);
+  --color-error: var(--error);
+
+  --color-footer: var(--footer);
+
+  --font-sans: Arial, Helvetica, sans-serif;
+}
+/* stylelint-enable at-rule-no-unknown */
+
+/* ========================================
+   GLOBAL STYLES
+======================================== */
 
 * {
   box-sizing: border-box;
@@ -31,9 +113,13 @@ html {
 
 body {
   margin: 0;
+  min-height: 100vh;
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
 }
 
 button,
@@ -45,7 +131,30 @@ button {
   cursor: pointer;
 }
 
+a {
+  text-decoration: none;
+}
+
 ::selection {
   background: var(--primary);
-  color: white;
+  color: #ffffff;
+}
+
+/* Consistent scrollbar */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-hover);
 }
