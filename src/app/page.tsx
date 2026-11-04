@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { connection } from "next/server";
+import { Suspense } from "react";
 import {
   ArrowRight,
   CalendarDays,
@@ -60,9 +60,8 @@ const formatDate = (date: string) => {
   });
 };
 
-const HomePage = async () => {
-  await connection();
-
+// Homepage content and dynamic event fetching
+const HomePageContent = async () => {
   let events: Event[] = [];
 
   try {
@@ -412,6 +411,21 @@ const HomePage = async () => {
         </div>
       </section>
     </div>
+  );
+};
+
+// Homepage with Suspense boundary
+const HomePage = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center">
+          Loading Bondhon...
+        </div>
+      }
+    >
+      <HomePageContent />
+    </Suspense>
   );
 };
 

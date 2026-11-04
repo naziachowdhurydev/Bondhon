@@ -1,16 +1,17 @@
+
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
 import { MongoClient } from "mongodb";
 import { jwt } from "better-auth/plugins";
 
-const uri = process.env.MONGODB_URI;
+const uri = process.env.BETTER_AUTH_DATABASE_URL;
 
 if (!uri) {
-  throw new Error("MONGODB_URI is not configured");
+  throw new Error("BETTER_AUTH_DATABASE_URL is not configured");
 }
 
 const client = new MongoClient(uri);
-const db = client.db(process.env.DB_NAME || "bondhon");
+const db = client.db();
 
 export const auth = betterAuth({
   database: mongodbAdapter(db, { client }),

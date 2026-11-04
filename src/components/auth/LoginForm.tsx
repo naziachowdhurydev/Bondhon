@@ -38,7 +38,10 @@ export default function LoginForm() {
       }
 
       toast.success("Welcome back to Bondhon!");
-      router.push("/");
+
+      await authClient.getSession();
+
+      router.replace("/");
       router.refresh();
     } catch (error) {
       console.error("Login error:", error);

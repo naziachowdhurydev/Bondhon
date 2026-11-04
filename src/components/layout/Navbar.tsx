@@ -28,9 +28,13 @@ const Navbar = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   const router = useRouter();
-  const { data: session, isPending } = authClient.useSession();
+  const { data: session, isPending, error, refetch } = authClient.useSession();
 
   const user = session?.user;
+
+  console.log("Navbar session:", session);
+  console.log("Navbar user:", user);
+  console.log("Session error:", error);
 
   const handleLogout = async () => {
     try {
@@ -184,28 +188,37 @@ const Navbar = () => {
               <p className="px-3 py-2 text-sm text-muted">Loading...</p>
             ) : user ? (
               <>
-                <div className="flex items-center gap-3 px-3 py-2">
+                <div className="flex flex-col items-center gap-2 rounded-xl bg-muted-background px-4 py-5">
                   {user.image ? (
                     <Image
                       src={user.image}
                       alt={user.name || "User"}
-                      width={40}
-                      height={40}
-                      className="h-10 w-10 rounded-full object-cover"
+                      width={64}
+                      height={64}
+                      className="h-16 w-16 rounded-full border-2 border-primary object-cover"
                       unoptimized
                     />
                   ) : (
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent-light text-primary">
-                      <UserRound size={20} />
+                    <div className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-primary bg-accent-light text-primary">
+                      <UserRound size={28} />
                     </div>
                   )}
 
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold text-foreground">
+                  <div className="min-w-0 text-center">
+                    <p className="truncate text-base font-semibold text-foreground">
                       {user.name}
                     </p>
-                    <p className="truncate text-xs text-muted">{user.email}</p>
+                    <p className="truncate text-sm text-muted">{user.email}</p>
                   </div>
+
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    className="mt-1 flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary-hover"
+                  >
+                    <LogOut size={17} />
+                    Logout
+                  </button>
                 </div>
 
                 <Link
@@ -223,14 +236,6 @@ const Navbar = () => {
                 >
                   Joined Events
                 </Link>
-
-                <button
-                  onClick={handleLogout}
-                  className="flex items-center gap-2 rounded-lg px-3 py-3 text-left text-sm font-semibold text-error hover:bg-muted-background"
-                >
-                  <LogOut size={17} />
-                  Logout
-                </button>
               </>
             ) : (
               <div className="flex flex-col gap-3">
