@@ -3,7 +3,6 @@ import CurrentYear from "./CurrentYear";
 import {
   HeartHandshake,
   ArrowRight,
-  Mail,
   Heart,
   CalendarDays,
 } from "lucide-react";
@@ -11,14 +10,10 @@ import {
 const exploreLinks = [
   { label: "Home", href: "/" },
   { label: "Upcoming Events", href: "/events" },
-  { label: "Community", href: "/community" },
   { label: "About Us", href: "/about" },
-  { label: "Contact", href: "/contact" },
 ];
 
 const getInvolvedLinks = [
-  { label: "Create an Event", href: "/create-event" },
-  { label: "Manage Events", href: "/manage-events" },
   { label: "Joined Events", href: "/joined-events" },
   { label: "Sign Up", href: "/signup" },
 ];
@@ -97,26 +92,13 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Contact */}
+          {/* Discover */}
           <div>
-            <h3 className="text-base font-bold text-foreground">
-              Get in Touch
-            </h3>
-
+            <h3 className="text-base font-bold text-foreground">Discover</h3>
             <p className="mt-6 text-sm leading-7 text-muted">
-              Have a question or an idea for a community event? We&apos;d love
-              to hear from you.
+              Find upcoming community events and ways to make a difference.
             </p>
-
-            <div className="mt-5 space-y-4">
-              <Link
-                href="/contact"
-                className="flex items-center gap-3 text-sm text-muted transition-colors hover:text-primary"
-              >
-                <Mail size={18} className="shrink-0 text-primary" />
-                Contact our team
-              </Link>
-
+            <div className="mt-4 space-y-4">
               <Link
                 href="/events"
                 className="flex items-center gap-3 text-sm text-muted transition-colors hover:text-primary"
