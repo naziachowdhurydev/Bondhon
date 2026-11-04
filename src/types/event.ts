@@ -35,3 +35,4 @@ export interface Event {
   createdAt: string;
   updatedAt: string;
 }
+

@@ -66,7 +66,7 @@ const HomePageContent = async () => {
 
   try {
     const result = await api.getUpcomingEvents();
-    events = (result.data ?? []).slice(0, 6);
+    events = (result.data ?? []).slice(0, 3);
   } catch (error) {
     console.error("Failed to load homepage events:", error);
   }
