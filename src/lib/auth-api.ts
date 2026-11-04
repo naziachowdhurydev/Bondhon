@@ -1,7 +1,20 @@
 import { authClient } from "./auth-client";
+import type { Event } from "@/types/event";
 
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
+interface ApiResponse<T> {
+  success: boolean;
+  message?: string;
+  data: T;
+}
+
+interface JoinEventResponse extends ApiResponse<Event> {
+  alreadyJoined: boolean;
+}
+
+type LeaveEventResponse = ApiResponse<Event>;
 
 const getHeaders = async () => {
   const { data, error } = await authClient.token();
@@ -16,10 +29,10 @@ const getHeaders = async () => {
   };
 };
 
-const request = async (
+const request = async <T = unknown>(
   endpoint: string,
-  options: RequestInit = {}
-) => {
+  options: RequestInit = {},
+): Promise<T> => {
   const headers = await getHeaders();
 
   const response = await fetch(`${API_URL}${endpoint}`, {
@@ -30,13 +43,20 @@ const request = async (
     },
   });
 
-  const result = await response.json();
+  const result: unknown = await response.json();
 
   if (!response.ok) {
-    throw new Error(result.message || "Something went wrong.");
+    const message =
+      typeof result === "object" &&
+      result !== null &&
+      "message" in result &&
+      typeof result.message === "string"
+        ? result.message
+        : "Something went wrong.";
+    throw new Error(message);
   }
 
-  return result;
+  return result as T;
 };
 
 export const authApi = {
@@ -61,15 +81,15 @@ export const authApi = {
     request("/api/events/my-events"),
 
   joinEvent: (eventId: string) =>
-    request(`/api/joined-events/${eventId}`, {
+    request<JoinEventResponse>(`/api/joined-events/${eventId}`, {
       method: "POST",
     }),
 
   getJoinedEvents: () =>
-    request("/api/joined-events"),
+    request<ApiResponse<Event[]>>("/api/joined-events"),
 
   leaveEvent: (eventId: string) =>
-    request(`/api/joined-events/${eventId}`, {
+    request<LeaveEventResponse>(`/api/joined-events/${eventId}`, {
       method: "DELETE",
     }),
 };

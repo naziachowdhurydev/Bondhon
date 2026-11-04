@@ -13,7 +13,7 @@ import {
   UserRound,
   Tag,
 } from "lucide-react";
-import type { Event } from "@/types/event";
+import type { Event, EventParticipant } from "@/types/event";
 import JoinEventButton from "./JoinEventButton";
 import Image from "next/image";
 
@@ -22,7 +22,14 @@ interface EventDetailsViewProps {
 }
 
 const EventDetailsView = ({ event }: EventDetailsViewProps) => {
-  const participants = event.participants ?? [];
+  const [updatedParticipants, setUpdatedParticipants] = useState<{
+    eventId: string;
+    participants: EventParticipant[];
+  } | null>(null);
+  const participants =
+    updatedParticipants?.eventId === event._id
+      ? updatedParticipants.participants
+      : (event.participants ?? []);
   const participantCount = participants.length;
   const eventDate = new Date(event.eventDate);
   const [currentTime, setCurrentTime] = useState<number | null>(null);
@@ -293,7 +300,22 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
                     participantIds={participants
                       .map((person) => person.userId)
                       .filter((id): id is string => Boolean(id))}
+                    participantEmails={participants.map(
+                      (person) => person.email,
+                    )}
                     isPastEvent={isPastEvent}
+                    onJoined={(joinedEvent) =>
+                      setUpdatedParticipants({
+                        eventId: event._id,
+                        participants: joinedEvent.participants ?? [],
+                      })
+                    }
+                    onLeft={(leftEvent) =>
+                      setUpdatedParticipants({
+                        eventId: event._id,
+                        participants: leftEvent.participants ?? [],
+                      })
+                    }
                   />
                   <p className="mt-3 text-center text-xs leading-5 text-muted">
                     Every helping hand makes a difference.

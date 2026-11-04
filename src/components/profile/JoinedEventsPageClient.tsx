@@ -7,8 +7,10 @@ import {
   CalendarDays,
   LoaderCircle,
   MapPin,
+  UserRoundMinus,
   UsersRound,
 } from "lucide-react";
+import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import { authApi } from "@/lib/auth-api";
 import type { Event } from "@/types/event";
@@ -21,6 +23,27 @@ const JoinedEventsPageClient = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [retryCount, setRetryCount] = useState(0);
+  const [leavingEventId, setLeavingEventId] = useState<string | null>(null);
+
+  const handleLeaveEvent = async (eventId: string) => {
+    try {
+      setLeavingEventId(eventId);
+      await authApi.leaveEvent(eventId);
+      setEvents((currentEvents) =>
+        currentEvents.filter((event) => event._id !== eventId),
+      );
+      toast.success("You have left this event.");
+    } catch (leaveError) {
+      console.error("Failed to leave event:", leaveError);
+      toast.error(
+        leaveError instanceof Error
+          ? leaveError.message
+          : "Unable to leave this event. Please try again.",
+      );
+    } finally {
+      setLeavingEventId(null);
+    }
+  };
 
   useEffect(() => {
     if (isPending) {
@@ -167,12 +190,27 @@ const JoinedEventsPageClient = () => {
                       </p>
                     </div>
 
-                    <Link
-                      href={`/events/${event._id}`}
-                      className="inline-flex shrink-0 items-center justify-center rounded-lg border border-border px-4 py-2 text-sm font-semibold text-foreground transition hover:border-primary hover:text-primary"
-                    >
-                      Event details
-                    </Link>
+                    <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+                      <Link
+                        href={`/events/${event._id}`}
+                        className="inline-flex items-center justify-center rounded-lg border border-border px-4 py-2 text-sm font-semibold text-foreground transition hover:border-primary hover:text-primary"
+                      >
+                        Event details
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => handleLeaveEvent(event._id)}
+                        disabled={leavingEventId === event._id}
+                        className="inline-flex items-center justify-center gap-2 rounded-lg border border-error/30 px-4 py-2 text-sm font-semibold text-error transition hover:bg-error/10 disabled:cursor-not-allowed disabled:opacity-60"
+                      >
+                        {leavingEventId === event._id ? (
+                          <LoaderCircle size={16} className="animate-spin" />
+                        ) : (
+                          <UserRoundMinus size={16} />
+                        )}
+                        {leavingEventId === event._id ? "Removing..." : "Remove"}
+                      </button>
+                    </div>
                   </div>
 
                   <div className="mt-5 flex flex-col gap-3 border-t border-border pt-4 text-sm text-muted sm:flex-row sm:flex-wrap sm:gap-x-6">
