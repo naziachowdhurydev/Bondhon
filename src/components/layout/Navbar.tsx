@@ -18,9 +18,7 @@ import toast from "react-hot-toast";
 const navLinks = [
   { name: "Home", href: "/" },
   { name: "Upcoming Events", href: "/events" },
-  { name: "Community", href: "/community" },
   { name: "About Us", href: "/about" },
-  { name: "Contact", href: "/contact" },
 ];
 
 const Navbar = () => {
@@ -28,7 +26,7 @@ const Navbar = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   const router = useRouter();
-  const { data: session, isPending, error, refetch } = authClient.useSession();
+  const { data: session, isPending, error } = authClient.useSession();
 
   const user = session?.user;
 
