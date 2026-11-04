@@ -75,31 +75,31 @@ const HomePage = async () => {
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative isolate bg-[#211A19]">
+      <section className="relative isolate bg-muted-background">
         <div className="absolute inset-0 -z-10">
           <div
-            className="absolute inset-0 bg-cover bg-center opacity-35"
+            className="absolute inset-0 bg-cover bg-center opacity-20"
             style={{
               backgroundImage:
                 "url('https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=1800')",
             }}
           />
-          <div className="absolute inset-0 bg-linear-to-r from-[#211A19] via-[#211A19]/90 to-[#211A19]/40" />
+          <div className="absolute inset-0 bg-linear-to-r from-background via-background/90 to-background/40" />
         </div>
 
         <div className="mx-auto grid min-h-155 max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8">
           <div className="max-w-2xl">
-            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-[#F4A261]">
+            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-card px-4 py-2 text-sm font-medium text-primary">
               <HeartHandshake size={17} />
               Together, We Make a Difference
             </span>
 
-            <h1 className="text-4xl leading-tight font-extrabold text-white sm:text-5xl lg:text-6xl">
+            <h1 className="text-4xl leading-tight font-extrabold text-foreground sm:text-5xl lg:text-6xl">
               Small Actions.
-              <span className="block text-[#E76F51]">Meaningful Change.</span>
+              <span className="block text-primary">Meaningful Change.</span>
             </h1>
 
-            <p className="mt-6 max-w-xl text-base leading-8 text-white/75 sm:text-lg">
+            <p className="mt-6 max-w-xl text-base leading-8 text-muted sm:text-lg">
               Bondhon brings people together through community events,
               volunteering, and social initiatives. Discover opportunities to
               help, connect, and make a positive impact.
@@ -116,7 +116,7 @@ const HomePage = async () => {
 
               <Link
                 href="/signup"
-                className="rounded-xl border border-white/40 px-6 py-3.5 font-semibold text-white transition hover:bg-white/10"
+                className="rounded-xl border border-border bg-card px-6 py-3.5 font-semibold text-foreground transition hover:bg-muted-background"
               >
                 Become a Volunteer
               </Link>
@@ -124,20 +124,20 @@ const HomePage = async () => {
           </div>
 
           <div className="hidden lg:flex lg:justify-end">
-            <div className="max-w-sm rounded-3xl border border-white/20 bg-white/10 p-8 text-white shadow-2xl backdrop-blur-md">
-              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary">
+            <div className="max-w-sm rounded-3xl border border-border bg-card p-8 text-foreground shadow-xl">
+              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-white">
                 <Users size={28} />
               </div>
 
               <h2 className="text-2xl font-bold">Be Part of Something Good</h2>
 
-              <p className="mt-3 leading-7 text-white/70">
+              <p className="mt-3 leading-7 text-muted">
                 Every volunteer, every idea, and every small contribution can
                 help build a stronger community.
               </p>
 
-              <div className="mt-7 flex items-center gap-3 border-t border-white/20 pt-5">
-                <HeartHandshake className="text-[#F4A261]" size={25} />
+              <div className="mt-7 flex items-center gap-3 border-t border-border pt-5">
+                <HeartHandshake className="text-primary" size={25} />
                 <span className="text-sm font-medium">
                   Connect. Participate. Make an Impact.
                 </span>
@@ -387,17 +387,17 @@ const HomePage = async () => {
       </section>
 
       {/* Newsletter */}
-      <section className="bg-[#211A19] px-4 py-20 sm:px-6 lg:px-8">
+      <section className="bg-muted-background px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-white">
             <Send size={26} />
           </div>
 
-          <h2 className="mt-6 text-3xl font-bold text-white sm:text-4xl">
+          <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl">
             Stay Connected with Bondhon
           </h2>
 
-          <p className="mt-4 leading-7 text-white/70">
+          <p className="mt-4 leading-7 text-muted">
             Get updates about community events, volunteering opportunities, and
             initiatives that make a difference.
           </p>
@@ -406,7 +406,7 @@ const HomePage = async () => {
             <NewsletterForm />
           </div>
 
-          <p className="mt-4 text-xs text-white/50">
+          <p className="mt-4 text-xs text-muted">
             Newsletter subscriptions are a frontend demo at this stage.
           </p>
         </div>
