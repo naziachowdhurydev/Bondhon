@@ -286,10 +286,10 @@ const AboutUs = async () => {
           </div>
 
           <Link
-            href="/signup"
+            href="/events"
             className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-white px-5 py-3 font-semibold text-primary transition hover:bg-accent-light"
           >
-            Join Bondhon <ArrowRight size={18} />
+            Explore Events <ArrowRight size={18} />
           </Link>
         </div>
       </section>

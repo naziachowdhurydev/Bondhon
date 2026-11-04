@@ -125,14 +125,6 @@ const Footer = () => {
                 Discover events
               </Link>
             </div>
-
-            <Link
-              href="/events"
-              className="mt-7 inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-1 hover:bg-primary-hover hover:shadow-lg hover:shadow-primary/20"
-            >
-              Explore Events
-              <ArrowRight size={16} />
-            </Link>
           </div>
         </div>
 

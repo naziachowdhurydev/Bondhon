@@ -9,12 +9,10 @@ import {
   Sprout,
   HandHeart,
   BookOpen,
-  Send,
 } from "lucide-react";
 
 import { api } from "@/lib/api";
 import type { Event } from "@/types/event";
-import NewsletterForm from "@/components/home/NewsletterForm";
 
 const galleryImages = [
   {
@@ -174,9 +172,9 @@ const HomePageContent = async () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div className="rounded-2xl bg-accent-light p-6">
-              <HeartHandshake size={30} className="text-primary" />
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="flex h-full min-h-48 flex-col rounded-2xl border border-primary/10 bg-accent-light p-6 transition hover:-translate-y-1 hover:shadow-md">
+              <HeartHandshake size={30} className="shrink-0 text-primary" />
               <h3 className="mt-4 font-bold text-foreground">
                 Build Connections
               </h3>
@@ -185,8 +183,8 @@ const HomePageContent = async () => {
               </p>
             </div>
 
-            <div className="mt-10 rounded-2xl bg-muted-background p-6">
-              <Users size={30} className="text-secondary" />
+            <div className="flex h-full min-h-48 flex-col rounded-2xl border border-border bg-muted-background p-6 transition hover:-translate-y-1 hover:shadow-md">
+              <Users size={30} className="shrink-0 text-secondary" />
               <h3 className="mt-4 font-bold text-foreground">Take Action</h3>
               <p className="mt-2 text-sm leading-6 text-muted">
                 Turn good intentions into real community activities.
@@ -385,29 +383,26 @@ const HomePageContent = async () => {
         </div>
       </section>
 
-      {/* Newsletter */}
-      <section className="bg-muted-background px-4 py-20 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-white">
-            <Send size={26} />
+      {/* About Bondhon */}
+      <section className="bg-muted-background px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-8 sm:grid-cols-[auto_1fr] sm:items-center sm:gap-10">
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-white">
+            <HeartHandshake size={28} />
           </div>
-
-          <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl">
-            Stay Connected with Bondhon
-          </h2>
-
-          <p className="mt-4 leading-7 text-muted">
-            Get updates about community events, volunteering opportunities, and
-            initiatives that make a difference.
-          </p>
-
-          <div className="mt-8">
-            <NewsletterForm />
+          <div className="max-w-3xl">
+            <p className="text-sm font-bold tracking-widest text-primary uppercase">
+              About Bondhon
+            </p>
+            <h2 className="mt-2 text-2xl font-bold text-foreground sm:text-3xl">
+              Bringing communities together through action
+            </h2>
+            <p className="mt-3 leading-7 text-muted">
+              Bondhon helps people discover local events, connect with
+              volunteers, and take part in causes that matter. From planting
+              trees to supporting neighbors, every shared effort helps build a
+              more caring and connected community.
+            </p>
           </div>
-
-          <p className="mt-4 text-xs text-muted">
-            Newsletter subscriptions are a frontend demo at this stage.
-          </p>
         </div>
       </section>
     </div>
