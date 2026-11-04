@@ -7,7 +7,7 @@ import {
   CalendarDays,
   LoaderCircle,
   MapPin,
-  UserRoundMinus,
+  Trash2,
   UsersRound,
 } from "lucide-react";
 import toast from "react-hot-toast";
@@ -201,12 +201,14 @@ const JoinedEventsPageClient = () => {
                         type="button"
                         onClick={() => handleLeaveEvent(event._id)}
                         disabled={leavingEventId === event._id}
+                        aria-label={`Remove ${event.title} from your joined events`}
+                        title="Remove from joined events"
                         className="inline-flex items-center justify-center gap-2 rounded-lg border border-error/30 px-4 py-2 text-sm font-semibold text-error transition hover:bg-error/10 disabled:cursor-not-allowed disabled:opacity-60"
                       >
                         {leavingEventId === event._id ? (
                           <LoaderCircle size={16} className="animate-spin" />
                         ) : (
-                          <UserRoundMinus size={16} />
+                          <Trash2 size={16} />
                         )}
                         {leavingEventId === event._id ? "Removing..." : "Remove"}
                       </button>
