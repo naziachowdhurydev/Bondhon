@@ -1,105 +1,114 @@
 import Link from "next/link";
-import Image from "next/image";
+import { connection } from "next/server";
 import {
   ArrowRight,
+  CalendarDays,
+  MapPin,
+  Users,
   HeartHandshake,
-  UsersRound,
-  CalendarCheck,
-  HandHeart,
   Sprout,
-  ShieldCheck,
-  Globe2,
+  HandHeart,
+  BookOpen,
+  Send,
 } from "lucide-react";
 
-import EventCard from "@/components/events/EventCard";
-import type { Event } from "@/types/event";
 import { api } from "@/lib/api";
+import type { Event } from "@/types/event";
+import NewsletterForm from "@/components/home/NewsletterForm";
 
 const galleryImages = [
   {
-    src: "https://images.unsplash.com/photo-1559027615-cd4628902d4a",
-    alt: "Volunteers working together on a community project",
-    title: "Working Together",
+    src: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800",
+    title: "Community Together",
+    category: "Community Support",
   },
   {
-    src: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c",
-    alt: "Children participating in a community learning activity",
-    title: "Supporting Education",
+    src: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800",
+    title: "A Greener Tomorrow",
+    category: "Environmental Care",
   },
   {
-    src: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09",
-    alt: "Green trees and environmental conservation",
-    title: "Caring for Nature",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b",
-    alt: "People participating in a volunteer activity",
-    title: "Creating Connections",
+    src: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800",
+    title: "Sharing Kindness",
+    category: "Social Development",
   },
 ];
 
-const benefits = [
+const causes = [
   {
-    icon: UsersRound,
-    title: "Find Your Community",
-    description:
-      "Meet people who care about the same causes and build meaningful connections through shared activities.",
-    color: "bg-accent-light text-primary",
+    icon: Sprout,
+    title: "Environmental Care",
+    description: "Take part in cleanups, tree planting, and a greener future.",
   },
   {
-    icon: CalendarCheck,
-    title: "Discover Events",
-    description:
-      "Explore upcoming community programs and find volunteer opportunities that fit your interests.",
-    color: "bg-[#E4F4F0] text-secondary",
+    icon: BookOpen,
+    title: "Education for All",
+    description: "Support learning opportunities and educational activities.",
   },
   {
     icon: HandHeart,
-    title: "Make an Impact",
-    description:
-      "Turn your time and effort into practical support for people and communities that need it.",
-    color: "bg-[#FFF0DF] text-[#C47A35]",
+    title: "Community Support",
+    description: "Help people through donations and meaningful local action.",
   },
 ];
 
+const formatDate = (date: string) => {
+  return new Date(date).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+};
+
 const HomePage = async () => {
+  await connection();
+
   let events: Event[] = [];
-  let hasError = false;
 
   try {
     const result = await api.getUpcomingEvents();
-    events = (result.data as Event[]).slice(0, 6);
+    events = (result.data ?? []).slice(0, 6);
   } catch (error) {
-    console.error("Homepage events could not be loaded:", error);
-    hasError = true;
+    console.error("Failed to load homepage events:", error);
   }
 
   return (
     <div className="overflow-hidden">
-      {/* HERO SECTION */}
-      <section className="relative bg-background">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2 lg:px-8 lg:py-24">
-          <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-accent-light px-4 py-2 text-sm font-semibold text-primary">
+      {/* Hero Section */}
+      <section className="relative isolate bg-[#211A19]">
+        <div className="absolute inset-0 -z-10">
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-35"
+            style={{
+              backgroundImage:
+                "url('https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=1800')",
+            }}
+          />
+          <div className="absolute inset-0 bg-linear-to-r from-[#211A19] via-[#211A19]/90 to-[#211A19]/40" />
+        </div>
+
+        <div className="mx-auto grid min-h-155 max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8">
+          <div className="max-w-2xl">
+            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-[#F4A261]">
               <HeartHandshake size={17} />
-              Together, We Can Make a Difference
+              Together, We Make a Difference
             </span>
 
-            <h1 className="mt-7 max-w-xl text-4xl font-extrabold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-              Small Acts.
-              <span className="block text-primary">Stronger Communities.</span>
+            <h1 className="text-4xl leading-tight font-extrabold text-white sm:text-5xl lg:text-6xl">
+              Small Actions.
+              <span className="block text-[#E76F51]">Meaningful Change.</span>
             </h1>
 
-            <p className="mt-6 max-w-lg text-base leading-8 text-muted sm:text-lg">
-              Discover meaningful volunteer opportunities, connect with
-              compassionate people, and take part in activities that bring
-              positive change to your community.
+            <p className="mt-6 max-w-xl text-base leading-8 text-white/75 sm:text-lg">
+              Bondhon brings people together through community events,
+              volunteering, and social initiatives. Discover opportunities to
+              help, connect, and make a positive impact.
             </p>
 
             <div className="mt-9 flex flex-wrap gap-4">
               <Link
                 href="/events"
-                className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-semibold text-white shadow-lg shadow-primary/20 transition-all duration-300 hover:-translate-y-1 hover:bg-primary-hover hover:shadow-xl"
+                className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-semibold text-white transition hover:bg-primary-hover"
               >
                 Explore Events
                 <ArrowRight size={18} />
@@ -107,187 +116,130 @@ const HomePage = async () => {
 
               <Link
                 href="/signup"
-                className="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-6 py-3.5 font-semibold text-foreground transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:text-primary"
+                className="rounded-xl border border-white/40 px-6 py-3.5 font-semibold text-white transition hover:bg-white/10"
               >
                 Become a Volunteer
               </Link>
             </div>
-
-            <div className="mt-10 flex flex-wrap gap-x-7 gap-y-3 text-sm font-medium text-muted">
-              <span className="flex items-center gap-2">
-                <ShieldCheck size={17} className="text-secondary" />
-                Community focused
-              </span>
-
-              <span className="flex items-center gap-2">
-                <HeartHandshake size={17} className="text-primary" />
-                Volunteer together
-              </span>
-            </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-xl">
-            <div className="absolute -right-8 -top-8 h-40 w-40 rounded-full bg-accent/20 blur-2xl" />
-            <div className="absolute -bottom-8 -left-8 h-40 w-40 rounded-full bg-secondary/20 blur-2xl" />
-
-            <div className="relative overflow-hidden rounded-4xl border-8 border-card shadow-2xl">
-              <Image
-                src="https://images.unsplash.com/photo-1559027615-cd4628902d4a"
-                alt="Volunteers working together to support their community"
-                width={900}
-                height={700}
-                priority
-                className="h-90 w-full object-cover sm:h-112.5"
-              />
-            </div>
-
-            <div className="absolute -bottom-5 left-3 flex items-center gap-3 rounded-2xl border border-border bg-card p-4 shadow-xl sm:-left-5">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent-light text-primary">
-                <HandHeart size={25} />
+          <div className="hidden lg:flex lg:justify-end">
+            <div className="max-w-sm rounded-3xl border border-white/20 bg-white/10 p-8 text-white shadow-2xl backdrop-blur-md">
+              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary">
+                <Users size={28} />
               </div>
-              <div>
-                <p className="font-bold text-foreground">Every Act Matters</p>
-                <p className="text-xs text-muted">
-                  Be part of something meaningful
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* IMPACT SECTION */}
-      <section className="border-y border-border bg-card">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 py-10 sm:px-6 lg:grid-cols-4 lg:px-8">
-          {[
-            { value: "Community", label: "First approach", icon: UsersRound },
-            {
-              value: "Together",
-              label: "Stronger connections",
-              icon: HeartHandshake,
-            },
-            {
-              value: "Action",
-              label: "Meaningful participation",
-              icon: CalendarCheck,
-            },
-            { value: "Change", label: "A better tomorrow", icon: Globe2 },
-          ].map((item) => {
-            const Icon = item.icon;
+              <h2 className="text-2xl font-bold">Be Part of Something Good</h2>
 
-            return (
-              <div key={item.value} className="text-center">
-                <Icon size={25} className="mx-auto text-primary" />
-                <h3 className="mt-3 text-xl font-extrabold text-foreground">
-                  {item.value}
-                </h3>
-                <p className="mt-1 text-sm text-muted">{item.label}</p>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* UPCOMING EVENTS */}
-      <section className="bg-background py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-            <div>
-              <span className="text-sm font-bold uppercase tracking-widest text-primary">
-                Get Involved
-              </span>
-
-              <h2 className="mt-3 text-3xl font-extrabold text-foreground sm:text-4xl">
-                Upcoming Community Events
-              </h2>
-
-              <p className="mt-4 max-w-xl leading-7 text-muted">
-                Find an opportunity to help, learn something new, and connect
-                with people who want to make a difference.
+              <p className="mt-3 leading-7 text-white/70">
+                Every volunteer, every idea, and every small contribution can
+                help build a stronger community.
               </p>
+
+              <div className="mt-7 flex items-center gap-3 border-t border-white/20 pt-5">
+                <HeartHandshake className="text-[#F4A261]" size={25} />
+                <span className="text-sm font-medium">
+                  Connect. Participate. Make an Impact.
+                </span>
+              </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Introduction */}
+      <section className="bg-background px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-2 md:items-center">
+          <div>
+            <span className="text-sm font-bold tracking-widest text-primary uppercase">
+              About Bondhon
+            </span>
+
+            <h2 className="mt-3 text-3xl leading-tight font-bold text-foreground sm:text-4xl">
+              Bringing People Together for a Better Community
+            </h2>
+
+            <p className="mt-5 leading-8 text-muted">
+              We believe meaningful change begins when people come together.
+              Bondhon makes it easier to discover social development events,
+              participate in community activities, and connect with people who
+              care about making a difference.
+            </p>
 
             <Link
-              href="/events"
-              className="inline-flex w-fit items-center gap-2 font-semibold text-primary transition-colors hover:text-primary-hover"
+              href="/about"
+              className="mt-7 inline-flex items-center gap-2 font-semibold text-primary hover:text-primary-hover"
             >
-              View All Events
+              Learn More About Us
               <ArrowRight size={18} />
             </Link>
           </div>
 
-          <div className="mt-10">
-            {hasError ? (
-              <div className="rounded-2xl border border-error/30 bg-card p-10 text-center">
-                <p className="font-semibold text-foreground">
-                  Events are temporarily unavailable.
-                </p>
-                <p className="mt-2 text-sm text-muted">
-                  Please check that the Bondhon server is running and try again.
-                </p>
-              </div>
-            ) : events.length === 0 ? (
-              <div className="rounded-2xl border border-border bg-card px-6 py-14 text-center">
-                <CalendarCheck size={40} className="mx-auto text-primary" />
-                <h3 className="mt-4 text-xl font-bold text-foreground">
-                  New opportunities are on the way
-                </h3>
-                <p className="mt-2 text-sm text-muted">
-                  There are no upcoming events available right now. Check back
-                  soon for community activities.
-                </p>
-              </div>
-            ) : (
-              <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
-                {events.map((event) => (
-                  <EventCard key={event._id} event={event} />
-                ))}
-              </div>
-            )}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="rounded-2xl bg-accent-light p-6">
+              <HeartHandshake size={30} className="text-primary" />
+              <h3 className="mt-4 font-bold text-foreground">
+                Build Connections
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-muted">
+                Meet people who share your passion for helping others.
+              </p>
+            </div>
+
+            <div className="mt-10 rounded-2xl bg-muted-background p-6">
+              <Users size={30} className="text-secondary" />
+              <h3 className="mt-4 font-bold text-foreground">Take Action</h3>
+              <p className="mt-2 text-sm leading-6 text-muted">
+                Turn good intentions into real community activities.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* WHY BONDHON */}
-      <section className="bg-accent-light/60 py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      {/* Causes */}
+      <section className="bg-card px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
           <div className="mx-auto max-w-2xl text-center">
-            <span className="text-sm font-bold uppercase tracking-widest text-primary">
-              Why Bondhon?
+            <span className="text-sm font-bold tracking-widest text-primary uppercase">
+              What We Support
             </span>
-
-            <h2 className="mt-3 text-3xl font-extrabold text-foreground sm:text-4xl">
-              More Than Events. It&apos;s About People.
+            <h2 className="mt-3 text-3xl font-bold text-foreground sm:text-4xl">
+              Find a Cause That Matters to You
             </h2>
-
             <p className="mt-4 leading-7 text-muted">
-              We make it easier for people to come together, support one
-              another, and turn good intentions into action.
+              Discover different ways to contribute your time and energy.
             </p>
           </div>
 
-          <div className="mt-12 grid gap-7 md:grid-cols-3">
-            {benefits.map((benefit) => {
-              const Icon = benefit.icon;
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {causes.map((cause) => {
+              const Icon = cause.icon;
 
               return (
                 <div
-                  key={benefit.title}
-                  className="rounded-2xl border border-border bg-card p-7 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+                  key={cause.title}
+                  className="rounded-2xl border border-border bg-background p-7 transition hover:-translate-y-1 hover:shadow-lg"
                 >
-                  <div
-                    className={`flex h-14 w-14 items-center justify-center rounded-2xl ${benefit.color}`}
-                  >
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent-light text-primary">
                     <Icon size={27} />
                   </div>
 
                   <h3 className="mt-6 text-xl font-bold text-foreground">
-                    {benefit.title}
+                    {cause.title}
                   </h3>
 
-                  <p className="mt-3 text-sm leading-7 text-muted">
-                    {benefit.description}
+                  <p className="mt-3 leading-7 text-muted">
+                    {cause.description}
                   </p>
+
+                  <Link
+                    href="/events"
+                    className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-hover"
+                  >
+                    Explore Events
+                    <ArrowRight size={16} />
+                  </Link>
                 </div>
               );
             })}
@@ -295,87 +247,168 @@ const HomePage = async () => {
         </div>
       </section>
 
-      {/* COMMUNITY GALLERY */}
-      <section className="bg-background py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <span className="text-sm font-bold uppercase tracking-widest text-primary">
-              Our Community
+      {/* Recent Events */}
+      <section className="bg-background px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+            <div>
+              <span className="text-sm font-bold tracking-widest text-primary uppercase">
+                Get Involved
+              </span>
+              <h2 className="mt-3 text-3xl font-bold text-foreground sm:text-4xl">
+                Upcoming Community Events
+              </h2>
+              <p className="mt-3 text-muted">
+                Find an event and become part of something meaningful.
+              </p>
+            </div>
+
+            <Link
+              href="/events"
+              className="inline-flex items-center gap-2 font-semibold text-primary hover:text-primary-hover"
+            >
+              View All Events
+              <ArrowRight size={18} />
+            </Link>
+          </div>
+
+          {events.length > 0 ? (
+            <div className="mt-10 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+              {events.map((event) => (
+                <article
+                  key={event._id}
+                  className="overflow-hidden rounded-2xl border border-border bg-card transition hover:-translate-y-1 hover:shadow-lg"
+                >
+                  <Link href={`/events/${event._id}`} className="block">
+                    <div
+                      className="h-52 bg-cover bg-center bg-muted-background"
+                      style={{
+                        backgroundImage: event.thumbnail
+                          ? `url("${event.thumbnail}")`
+                          : undefined,
+                      }}
+                    />
+
+                    <div className="p-5">
+                      <span className="rounded-full bg-accent-light px-3 py-1 text-xs font-semibold text-primary">
+                        {event.eventType}
+                      </span>
+
+                      <h3 className="mt-4 line-clamp-1 text-xl font-bold text-foreground">
+                        {event.title}
+                      </h3>
+
+                      <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted">
+                        {event.description}
+                      </p>
+
+                      <div className="mt-5 space-y-2 border-t border-border pt-4 text-sm text-muted">
+                        <p className="flex items-center gap-2">
+                          <CalendarDays size={16} className="text-primary" />
+                          {formatDate(event.eventDate)}
+                        </p>
+
+                        <p className="flex items-center gap-2">
+                          <MapPin size={16} className="text-primary" />
+                          <span className="line-clamp-1">{event.location}</span>
+                        </p>
+                      </div>
+
+                      <div className="mt-5 flex items-center justify-between">
+                        <span className="text-sm font-medium text-muted">
+                          {event.participants?.length ?? 0} Participants
+                        </span>
+
+                        <span className="inline-flex items-center gap-1 text-sm font-bold text-primary">
+                          View Details
+                          <ArrowRight size={15} />
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="mt-10 rounded-2xl border border-border bg-card px-6 py-16 text-center">
+              <CalendarDays size={38} className="mx-auto text-muted" />
+              <h3 className="mt-4 text-xl font-bold text-foreground">
+                No Upcoming Events Yet
+              </h3>
+              <p className="mt-2 text-muted">
+                New community events will appear here when they are available.
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Gallery */}
+      <section className="bg-card px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="mx-auto max-w-2xl text-center">
+            <span className="text-sm font-bold tracking-widest text-primary uppercase">
+              Community Moments
             </span>
-
-            <h2 className="mt-3 text-3xl font-extrabold text-foreground sm:text-4xl">
-              Moments That Bring Us Together
+            <h2 className="mt-3 text-3xl font-bold text-foreground sm:text-4xl">
+              Together, We Create Memories
             </h2>
-
-            <p className="mx-auto mt-4 max-w-xl leading-7 text-muted">
-              Every volunteer activity creates an opportunity to share kindness,
-              build friendships, and inspire change.
+            <p className="mt-4 leading-7 text-muted">
+              Every community activity starts with people willing to make a
+              difference.
             </p>
           </div>
 
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {galleryImages.map((image) => (
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
+            {galleryImages.map((item) => (
               <div
-                key={image.title}
-                className="group relative h-64 overflow-hidden rounded-2xl bg-muted-background shadow-sm"
+                key={item.title}
+                className="group relative h-80 overflow-hidden rounded-2xl bg-muted-background"
               >
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                <div
+                  className="absolute inset-0 bg-cover bg-center transition duration-500 group-hover:scale-110"
+                  style={{ backgroundImage: `url("${item.src}")` }}
                 />
 
-                <div className="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/10 to-transparent" />
 
-                <h3 className="absolute bottom-5 left-5 font-bold text-white">
-                  {image.title}
-                </h3>
+                <div className="absolute right-0 bottom-0 left-0 p-6">
+                  <p className="text-sm font-medium text-[#F4A261]">
+                    {item.category}
+                  </p>
+                  <h3 className="mt-2 text-xl font-bold text-white">
+                    {item.title}
+                  </h3>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CALL TO ACTION */}
-      <section className="bg-background px-4 pb-20 sm:px-6 lg:px-8">
-        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-4xl bg-[#211A19] px-6 py-16 text-center sm:px-12 lg:py-20">
-          <div className="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-primary/20 blur-3xl" />
-          <div className="absolute -bottom-20 -right-20 h-64 w-64 rounded-full bg-secondary/20 blur-3xl" />
-
-          <div className="relative mx-auto max-w-2xl">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-primary text-white">
-              <Sprout size={32} />
-            </div>
-
-            <h2 className="mt-7 text-3xl font-extrabold leading-tight text-white sm:text-4xl">
-              Your Community Needs People Like You.
-            </h2>
-
-            <p className="mt-5 leading-8 text-[#D6C5BD]">
-              Whether you have an hour to spare or an idea worth sharing,
-              there&apos;s a place for you at Bondhon. Start making a difference
-              today.
-            </p>
-
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <Link
-                href="/signup"
-                className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-primary-hover"
-              >
-                Join Bondhon
-                <ArrowRight size={18} />
-              </Link>
-
-              <Link
-                href="/events"
-                className="inline-flex items-center gap-2 rounded-xl border border-white/30 px-6 py-3.5 font-semibold text-white transition-all duration-300 hover:border-white hover:bg-white/10"
-              >
-                Find an Event
-              </Link>
-            </div>
+      {/* Newsletter */}
+      <section className="bg-[#211A19] px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-white">
+            <Send size={26} />
           </div>
+
+          <h2 className="mt-6 text-3xl font-bold text-white sm:text-4xl">
+            Stay Connected with Bondhon
+          </h2>
+
+          <p className="mt-4 leading-7 text-white/70">
+            Get updates about community events, volunteering opportunities, and
+            initiatives that make a difference.
+          </p>
+
+          <div className="mt-8">
+            <NewsletterForm />
+          </div>
+
+          <p className="mt-4 text-xs text-white/50">
+            Newsletter subscriptions are a frontend demo at this stage.
+          </p>
         </div>
       </section>
     </div>
