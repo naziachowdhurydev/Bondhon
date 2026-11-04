@@ -3,6 +3,8 @@ import { api } from "@/lib/api";
 import type { Event } from "@/types/event";
 import EventsPageClient from "@/components/events/EventsPageClient";
 
+export const instant = false;
+
 const EventsPage = async () => {
   await connection();
 

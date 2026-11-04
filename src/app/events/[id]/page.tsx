@@ -4,6 +4,8 @@ import EventDetailsView from "@/components/events/EventDetailsView";
 import { api } from "@/lib/api";
 import type { Event } from "@/types/event";
 
+export const instant = false;
+
 interface PageProps {
   params: Promise<{ id: string }>;
 }
