@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Menu,
   X,
@@ -26,6 +26,7 @@ const Navbar = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   const router = useRouter();
+  const pathname = usePathname();
   const { data: session, isPending, error } = authClient.useSession();
 
   const user = session?.user;
@@ -63,15 +64,30 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-7 lg:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-muted transition-colors hover:text-primary"
-            >
-              {link.name}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive =
+              link.href === "/"
+                ? pathname === link.href
+                : pathname.startsWith(link.href);
+
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={isActive ? "page" : undefined}
+                className={`relative rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+                  isActive
+                    ? "bg-accent-light text-primary"
+                    : "text-muted hover:bg-muted-background hover:text-primary"
+                }`}
+              >
+                {link.name}
+                {isActive && (
+                  <span className="absolute right-1/2 -bottom-1 h-1 w-1 -translate-x-1/2 rounded-full bg-primary" />
+                )}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Desktop Authentication */}
@@ -169,16 +185,28 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="border-t border-border bg-card px-4 py-5 lg:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsMenuOpen(false)}
-                className="rounded-lg px-3 py-3 text-sm font-medium text-foreground transition hover:bg-muted-background hover:text-primary"
-              >
-                {link.name}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive =
+                link.href === "/"
+                  ? pathname === link.href
+                  : pathname.startsWith(link.href);
+
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`rounded-xl border-l-4 px-3 py-3 text-sm font-semibold transition ${
+                    isActive
+                      ? "border-primary bg-accent-light text-primary"
+                      : "border-transparent text-foreground hover:bg-muted-background hover:text-primary"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
 
             <div className="my-2 border-t border-border" />
 
