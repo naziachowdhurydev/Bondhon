@@ -1,3 +1,4 @@
+
 export type EventType =
   | "Cleanup"
   | "Plantation"
@@ -5,6 +6,13 @@ export type EventType =
   | "Education"
   | "Food Distribution"
   | "Health Camp";
+
+export interface EventParticipant {
+  userId?: string;
+  name: string;
+  email: string;
+  joinedAt: string;
+}
 
 export interface Event {
   _id: string;
@@ -16,16 +24,14 @@ export interface Event {
   eventDate: string;
 
   creator: {
+    userId?: string;
     name: string;
     email: string;
   };
 
-  participants: {
-    name: string;
-    email: string;
-    joinedAt: string;
-  }[];
+  participants: EventParticipant[];
 
+  participantCount?: number;
   createdAt: string;
   updatedAt: string;
 }

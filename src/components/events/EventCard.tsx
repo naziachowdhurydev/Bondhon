@@ -64,7 +64,7 @@ const EventCard = ({ event }: EventCardProps) => {
           href={`/events/${event._id}`}
           className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-primary-hover hover:shadow-md"
         >
-          View Event
+          View Details
           <ArrowUpRight
             size={17}
             className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
