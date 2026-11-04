@@ -15,6 +15,16 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const getCallbackURL = () => {
+    const callbackURL = new URLSearchParams(window.location.search).get(
+      "callbackURL",
+    );
+
+    return callbackURL?.startsWith("/") && !callbackURL.startsWith("//")
+      ? callbackURL
+      : "/";
+  };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -29,7 +39,7 @@ export default function LoginForm() {
       const { error } = await authClient.signIn.email({
         email: email.trim(),
         password,
-        callbackURL: "/",
+        callbackURL: getCallbackURL(),
       });
 
       if (error) {
@@ -41,7 +51,7 @@ export default function LoginForm() {
 
       await authClient.getSession();
 
-      router.replace("/");
+      router.replace(getCallbackURL());
       router.refresh();
     } catch (error) {
       console.error("Login error:", error);
@@ -57,7 +67,7 @@ export default function LoginForm() {
 
       const { error } = await authClient.signIn.social({
         provider,
-        callbackURL: "/",
+        callbackURL: getCallbackURL(),
       });
 
       if (error) {
