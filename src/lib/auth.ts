@@ -11,7 +11,7 @@ if (!uri) {
 }
 
 const client = new MongoClient(uri);
-const db = client.db();
+const db = client.db(process.env.DB_NAME || "shobai");
 
 export const auth = betterAuth({
   database: mongodbAdapter(db, { client }),
