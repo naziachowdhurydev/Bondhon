@@ -75,10 +75,50 @@ const HomePageContent = async () => {
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative isolate bg-muted-background">
+      <section
+        id="bondhon-home-hero"
+        className="relative isolate overflow-hidden bg-muted-background"
+      >
+        <style>{`
+          @keyframes bondhon-hero-reveal {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes bondhon-hero-pan {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.055); }
+          }
+          @keyframes bondhon-hero-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-9px); }
+          }
+          @keyframes bondhon-hero-heartbeat {
+            0%, 100% { transform: scale(1); }
+            8%, 18% { transform: scale(1.1); }
+            13%, 23% { transform: scale(1); }
+          }
+          @media (prefers-reduced-motion: no-preference) {
+            #bondhon-home-hero .bondhon-hero-reveal {
+              animation: bondhon-hero-reveal 700ms cubic-bezier(.2,.8,.2,1) both;
+            }
+            #bondhon-home-hero .bondhon-hero-delay-1 { animation-delay: 100ms; }
+            #bondhon-home-hero .bondhon-hero-delay-2 { animation-delay: 200ms; }
+            #bondhon-home-hero .bondhon-hero-delay-3 { animation-delay: 300ms; }
+            #bondhon-home-hero .bondhon-hero-delay-4 { animation-delay: 400ms; }
+            #bondhon-home-hero .bondhon-hero-pan {
+              animation: bondhon-hero-pan 24s ease-in-out infinite;
+            }
+            #bondhon-home-hero .bondhon-hero-float {
+              animation: bondhon-hero-float 5s ease-in-out infinite;
+            }
+            #bondhon-home-hero .bondhon-hero-heartbeat {
+              animation: bondhon-hero-heartbeat 4s ease-in-out infinite;
+            }
+          }
+        `}</style>
         <div className="absolute inset-0 -z-10">
           <div
-            className="absolute inset-0 bg-cover bg-center opacity-20"
+            className="bondhon-hero-pan absolute inset-0 bg-cover bg-center opacity-20"
             style={{
               backgroundImage:
                 "url('https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=1800')",
@@ -89,51 +129,61 @@ const HomePageContent = async () => {
 
         <div className="mx-auto grid min-h-155 max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8">
           <div className="max-w-2xl">
-            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-card px-4 py-2 text-sm font-medium text-primary">
-              <HeartHandshake size={17} />
+            <span className="bondhon-hero-reveal inline-flex items-center gap-2 rounded-full border border-primary/25 bg-card px-4 py-2 text-sm font-medium text-primary">
+              <HeartHandshake className="bondhon-hero-heartbeat" size={17} />
               Together, We Make a Difference
             </span>
 
-            <h1 className="text-4xl leading-tight font-extrabold text-foreground sm:text-5xl lg:text-6xl">
+            <h1 className="bondhon-hero-reveal bondhon-hero-delay-1 mt-6 text-4xl leading-tight font-extrabold text-foreground sm:text-5xl lg:text-6xl">
               Small Actions.
               <span className="block text-primary">Meaningful Change.</span>
             </h1>
 
-            <p className="mt-6 max-w-xl text-base leading-8 text-muted sm:text-lg">
+            <p className="bondhon-hero-reveal bondhon-hero-delay-2 mt-6 max-w-xl text-base leading-8 text-muted sm:text-lg">
               Bondhon brings people together through community events,
               volunteering, and social initiatives. Discover opportunities to
               help, connect, and make a positive impact.
             </p>
 
-            <div className="mt-9">
+            <div className="bondhon-hero-reveal bondhon-hero-delay-3 mt-9">
               <Link
                 href="/events"
-                className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-semibold text-white transition hover:bg-primary-hover"
+                className="group inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-primary-hover hover:shadow-lg hover:shadow-primary/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               >
                 Explore Events
-                <ArrowRight size={18} />
+                <ArrowRight
+                  className="transition-transform duration-200 group-hover:translate-x-1"
+                  size={18}
+                />
               </Link>
             </div>
           </div>
 
           <div className="hidden lg:flex lg:justify-end">
-            <div className="max-w-sm rounded-3xl border border-border bg-card p-8 text-foreground shadow-xl">
-              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-white">
-                <Users size={28} />
-              </div>
+            <div className="bondhon-hero-reveal bondhon-hero-delay-4">
+              <div className="bondhon-hero-float max-w-sm rounded-3xl border border-border bg-card p-8 text-foreground shadow-xl">
+                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-white">
+                  <Users size={28} />
+                </div>
 
-              <h2 className="text-2xl font-bold">Be Part of Something Good</h2>
+                <h2 className="text-2xl font-bold">
+                  Be Part of Something Good
+                </h2>
 
-              <p className="mt-3 leading-7 text-muted">
-                Every volunteer, every idea, and every small contribution can
-                help build a stronger community.
-              </p>
+                <p className="mt-3 leading-7 text-muted">
+                  Every volunteer, every idea, and every small contribution can
+                  help build a stronger community.
+                </p>
 
-              <div className="mt-7 flex items-center gap-3 border-t border-border pt-5">
-                <HeartHandshake className="text-primary" size={25} />
-                <span className="text-sm font-medium">
-                  Connect. Participate. Make an Impact.
-                </span>
+                <div className="mt-7 flex items-center gap-3 border-t border-border pt-5">
+                  <HeartHandshake
+                    className="bondhon-hero-heartbeat text-primary"
+                    size={25}
+                  />
+                  <span className="text-sm font-medium">
+                    Connect. Participate. Make an Impact.
+                  </span>
+                </div>
               </div>
             </div>
           </div>
