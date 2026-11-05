@@ -6,6 +6,7 @@ import {
   Heart,
   CalendarDays,
 } from "lucide-react";
+import ManageEventsFooterLink from "./ManageEventsFooterLink";
 
 const exploreLinks = [
   { label: "Home", href: "/" },
@@ -89,6 +90,7 @@ const Footer = () => {
                   {link.label}
                 </Link>
               ))}
+              <ManageEventsFooterLink />
             </div>
           </div>
 
