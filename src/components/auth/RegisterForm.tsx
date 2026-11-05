@@ -12,6 +12,7 @@ export default function RegisterForm() {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [image, setImage] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -38,6 +39,19 @@ export default function RegisterForm() {
       return;
     }
 
+    const profileImage = image.trim();
+    if (profileImage) {
+      try {
+        const imageUrl = new URL(profileImage);
+        if (!["http:", "https:"].includes(imageUrl.protocol)) {
+          throw new Error("Unsupported image URL protocol.");
+        }
+      } catch {
+        toast.error("Please enter a valid HTTP or HTTPS image URL.");
+        return;
+      }
+    }
+
     if (!validatePassword(password)) {
       toast.error(
         "Password must contain at least 6 characters, one uppercase and one lowercase letter.",
@@ -57,6 +71,7 @@ export default function RegisterForm() {
         name: name.trim(),
         email: cleanEmail,
         password,
+        ...(profileImage ? { image: profileImage } : {}),
         callbackURL: "/",
       });
 
@@ -142,6 +157,29 @@ export default function RegisterForm() {
               className="w-full rounded-xl border border-border bg-background px-4 py-3 text-foreground outline-none transition focus:border-primary"
               required
             />
+          </div>
+
+          <div>
+            <label
+              htmlFor="signup-image"
+              className="mb-2 block text-sm font-medium text-foreground"
+            >
+              Profile Image URL{" "}
+              <span className="font-normal text-muted">(Optional)</span>
+            </label>
+
+            <input
+              id="signup-image"
+              type="url"
+              autoComplete="url"
+              value={image}
+              onChange={(event) => setImage(event.target.value)}
+              placeholder="https://example.com/your-photo.jpg"
+              className="w-full rounded-xl border border-border bg-background px-4 py-3 text-foreground outline-none transition focus:border-primary"
+            />
+            <p className="mt-2 text-xs text-muted">
+              You can add or change your profile image later from your profile.
+            </p>
           </div>
 
           <div>
