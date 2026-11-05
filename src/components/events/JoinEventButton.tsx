@@ -126,8 +126,13 @@ const JoinEventButton = ({
   }
 
   if (!userId) {
+    const callbackURL = `/events/${eventId}`;
+
     return (
-      <Link href="/login" className={buttonClassName}>
+      <Link
+        href={`/login?callbackURL=${encodeURIComponent(callbackURL)}`}
+        className={buttonClassName}
+      >
         Sign in to join
       </Link>
     );
