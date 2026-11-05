@@ -31,21 +31,13 @@ const EventDeleteButton = ({
   }
 
   const handleDelete = async () => {
-    if (
-      !window.confirm(
-        `Delete "${event.title}"? This action cannot be undone.`,
-      )
-    ) {
-      return;
-    }
-
     try {
       setIsDeleting(true);
       const result = await authApi.deleteEvent(event._id);
-      if (result.success === false) {
+      if (!result.success) {
         throw new Error(result.message || "Unable to delete this event.");
       }
-      toast.success("Event deleted successfully.");
+      toast.success(result.message || "Event deleted successfully.");
       onDeleted?.();
       router.refresh();
     } catch (error) {

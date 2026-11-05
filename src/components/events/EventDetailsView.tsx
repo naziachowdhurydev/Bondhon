@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
   ArrowUpRight,
@@ -11,13 +10,13 @@ import {
   Clock3,
   HeartHandshake,
   MapPin,
+  Pencil,
   Users,
   UserRound,
   Tag,
 } from "lucide-react";
 import type { Event, EventParticipant } from "@/types/event";
 import JoinEventButton from "./JoinEventButton";
-import EventDeleteButton from "./EventDeleteButton";
 import { authClient } from "@/lib/auth-client";
 
 interface EventDetailsViewProps {
@@ -25,7 +24,6 @@ interface EventDetailsViewProps {
 }
 
 const EventDetailsView = ({ event }: EventDetailsViewProps) => {
-  const router = useRouter();
   const { data: session } = authClient.useSession();
   const user = session?.user;
   const isCreatedByUser =
@@ -334,12 +332,17 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
                       })
                     }
                   />
-                  <div className="mt-3">
-                    <EventDeleteButton
-                      event={event}
-                      onDeleted={() => router.push("/events")}
-                    />
-                  </div>
+                  {isCreatedByUser && (
+                    <div className="mt-3 flex justify-center">
+                      <Link
+                        href="/manage-events"
+                        className="inline-flex items-center justify-center gap-2 rounded-xl border border-primary/30 px-4 py-3 text-sm font-semibold text-primary transition hover:bg-accent-light"
+                      >
+                        <Pencil size={17} />
+                        Manage Events
+                      </Link>
+                    </div>
+                  )}
                   <p className="mt-3 text-center text-xs leading-5 text-muted">
                     Every helping hand makes a difference.
                   </p>

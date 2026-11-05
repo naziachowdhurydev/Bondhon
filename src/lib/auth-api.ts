@@ -21,13 +21,27 @@ export type EventCreateInput = Pick<
   | "creator"
 >;
 
+export type EventUpdateInput = Pick<
+  Event,
+  | "title"
+  | "description"
+  | "eventType"
+  | "thumbnail"
+  | "location"
+  | "eventDate"
+>;
+
 interface JoinEventResponse extends ApiResponse<Event> {
   alreadyJoined: boolean;
 }
 
 type LeaveEventResponse = ApiResponse<Event>;
+interface EventMutationResponse {
+  success: boolean;
+  message?: string;
+}
 interface DeleteEventResponse {
-  success?: boolean;
+  success: boolean;
   message?: string;
 }
 
@@ -81,8 +95,8 @@ export const authApi = {
       body: JSON.stringify(eventData),
     }),
 
-  updateEvent: (id: string, eventData: object) =>
-    request(`/api/events/${id}`, {
+  updateEvent: (id: string, eventData: EventUpdateInput) =>
+    request<EventMutationResponse>(`/api/events/${id}`, {
       method: "PUT",
       body: JSON.stringify(eventData),
     }),
@@ -92,8 +106,7 @@ export const authApi = {
       method: "DELETE",
     }),
 
-  getMyEvents: () =>
-    request("/api/events/my-events"),
+  getMyEvents: () => request<ApiResponse<Event[]>>("/api/events/my-events"),
 
   joinEvent: (eventId: string) =>
     request<JoinEventResponse>(`/api/joined-events/${eventId}`, {
