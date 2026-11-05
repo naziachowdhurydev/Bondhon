@@ -202,7 +202,7 @@ const HomePageContent = async () => {
             <div
               role="img"
               aria-label="Community icons orbiting a shared meeting point"
-              className="relative flex aspect-square w-full max-w-[17rem] items-center justify-center"
+              className="relative flex aspect-square w-full max-w-68 items-center justify-center"
             >
               <div className="absolute inset-1 rounded-full border border-dashed border-border/80" />
               <div className="absolute inset-6 rounded-full border border-border/60" />

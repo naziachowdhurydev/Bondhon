@@ -87,7 +87,7 @@ export default function LoginForm() {
 
   return (
     <section className="flex min-h-[80vh] items-center justify-center bg-background px-4 py-12">
-      <div className="w-full max-w-[26rem] rounded-3xl border border-border bg-card p-6 shadow-lg sm:p-8">
+      <div className="w-full max-w-104 rounded-3xl border border-border bg-card p-6 shadow-lg sm:p-8">
         <div className="mb-6 text-center">
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-white">
             <HeartHandshake size={26} />

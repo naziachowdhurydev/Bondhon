@@ -80,7 +80,7 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
           All events
         </Link>
 
-        <section className="relative mt-4 isolate min-h-[360px] overflow-hidden rounded-3xl bg-muted-background sm:mt-5 sm:min-h-[400px] sm:rounded-4xl lg:min-h-[480px]">
+        <section className="relative mt-4 isolate min-h-90 overflow-hidden rounded-3xl bg-muted-background sm:mt-5 sm:min-h-100 sm:rounded-4xl lg:min-h-120">
           {event.thumbnail ? (
             <div
               role="img"
@@ -92,7 +92,7 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
           <div className="absolute inset-0 -z-10 bg-linear-to-r from-background via-background/85 to-background/35" />
           <div className="absolute inset-0 -z-10 bg-linear-to-t from-background/70 via-transparent to-transparent" />
 
-          <div className="flex min-h-[360px] flex-col justify-end p-5 sm:min-h-[400px] sm:p-7 lg:min-h-[480px] lg:p-12 lg:max-w-4xl">
+          <div className="flex min-h-90 flex-col justify-end p-5 sm:min-h-100 sm:p-7 lg:min-h-120 lg:p-12 lg:max-w-4xl">
             <div className="mb-4 flex flex-wrap items-center gap-2 sm:mb-5">
               <span className="inline-flex w-fit items-center gap-2 rounded-full border border-border bg-card/90 px-3.5 py-1.5 text-xs font-semibold text-primary backdrop-blur sm:px-4 sm:py-2 sm:text-sm">
                 <span className="h-2 w-2 rounded-full bg-primary" />
@@ -168,13 +168,13 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
                   </h2>
                 </div>
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-light text-secondary sm:h-12 sm:w-12 sm:rounded-2xl">
-                  <Users size={20} className="sm:h-[23px] sm:w-[23px]" />
+                  <Users size={20} className="sm:h-5.75 sm:w-5.75" />
                 </div>
               </div>
 
               <div className="mt-4 flex items-center gap-3 rounded-xl bg-muted-background p-3 sm:mt-6 sm:gap-4 sm:rounded-2xl sm:p-4">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-card text-primary shadow-sm sm:h-12 sm:w-12">
-                  <UserRound size={19} className="sm:h-[22px] sm:w-[22px]" />
+                  <UserRound size={19} className="sm:h-5.5 sm:w-5.5" />
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs font-medium text-muted">Hosted by</p>
@@ -234,7 +234,6 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
                   </span>
                 )}
               </div>
-
             </section>
           </div>
 
@@ -244,13 +243,15 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
                 <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-primary sm:text-xs sm:tracking-[0.18em]">
                   Your next good thing
                 </p>
-                <h2 className="mt-1 text-lg font-bold sm:text-xl">Event details</h2>
+                <h2 className="mt-1 text-lg font-bold sm:text-xl">
+                  Event details
+                </h2>
               </div>
 
               <div className="space-y-4 p-4 sm:space-y-5 sm:p-6">
                 <div className="flex gap-3 sm:gap-4">
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent-light text-primary sm:h-10 sm:w-10">
-                    <CalendarDays size={17} className="sm:h-[19px] sm:w-[19px]" />
+                    <CalendarDays size={17} className="sm:h-4.75 sm:w-4.75" />
                   </span>
                   <div className="min-w-0 pt-0.5">
                     <p className="text-xs font-medium text-muted">Date</p>
@@ -268,7 +269,7 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
 
                 <div className="flex gap-3 sm:gap-4">
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent-light text-primary sm:h-10 sm:w-10">
-                    <Clock3 size={17} className="sm:h-[19px] sm:w-[19px]" />
+                    <Clock3 size={17} className="sm:h-4.75 sm:w-4.75" />
                   </span>
                   <div className="min-w-0 pt-0.5">
                     <p className="text-xs font-medium text-muted">Time</p>
@@ -285,7 +286,7 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
 
                 <div className="flex gap-3 sm:gap-4">
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent-light text-secondary sm:h-10 sm:w-10">
-                    <MapPin size={17} className="sm:h-[19px] sm:w-[19px]" />
+                    <MapPin size={17} className="sm:h-4.75 sm:w-4.75" />
                   </span>
                   <div className="min-w-0 pt-0.5">
                     <p className="text-xs font-medium text-muted">Location</p>
@@ -297,7 +298,7 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
 
                 <div className="flex gap-3 sm:gap-4">
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent-light text-primary sm:h-10 sm:w-10">
-                    <Tag size={17} className="sm:h-[19px] sm:w-[19px]" />
+                    <Tag size={17} className="sm:h-4.75 sm:w-4.75" />
                   </span>
                   <div className="min-w-0 pt-0.5">
                     <p className="text-xs font-medium text-muted">Category</p>
