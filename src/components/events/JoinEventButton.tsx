@@ -11,6 +11,8 @@ import type { Event } from "@/types/event";
 
 interface JoinEventButtonProps {
   eventId: string;
+  creatorId?: string;
+  creatorEmail?: string;
   participantIds: string[];
   participantEmails: string[];
   isPastEvent: boolean;
@@ -23,6 +25,8 @@ const buttonClassName =
 
 const JoinEventButton = ({
   eventId,
+  creatorId,
+  creatorEmail,
   participantIds,
   participantEmails,
   isPastEvent,
@@ -36,6 +40,10 @@ const JoinEventButton = ({
 
   const userId = session?.user.id;
   const userEmail = session?.user.email;
+  const isCreator =
+    Boolean(session?.user) &&
+    (creatorId === userId ||
+      creatorEmail?.toLowerCase() === userEmail?.toLowerCase());
   const hasJoined =
     (userId ? participantIds.includes(userId) : false) ||
     (userEmail ? participantEmails.includes(userEmail) : false);
@@ -131,9 +139,14 @@ const JoinEventButton = ({
       className={buttonClassName}
       onClick={handleJoin}
       disabled={isJoining}
+      aria-label={isCreator ? "Join your event" : "Join event"}
     >
       {isJoining && <LoaderCircle size={18} className="animate-spin" />}
-      {isJoining ? "Joining..." : "Join Event"}
+      {isJoining
+        ? "Joining..."
+        : isCreator
+          ? "Join Your Event"
+          : "Join Event"}
     </button>
   );
 };

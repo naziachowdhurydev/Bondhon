@@ -312,6 +312,8 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
                 <div className="border-t border-border pt-5">
                   <JoinEventButton
                     eventId={event._id}
+                    creatorId={event.creator?.userId}
+                    creatorEmail={event.creator?.email}
                     participantIds={participants
                       .map((person) => person.userId)
                       .filter((id): id is string => Boolean(id))}
