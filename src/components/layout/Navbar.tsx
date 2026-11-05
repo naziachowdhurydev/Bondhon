@@ -10,6 +10,7 @@ import {
   UserRound,
   LogOut,
   CalendarDays,
+  HeartHandshake,
   ChevronDown,
 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
@@ -125,7 +126,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-white sm:h-10 sm:w-10">
-            <CalendarDays size={20} className="sm:h-5.5 sm:w-5.5" />
+            <HeartHandshake size={23} strokeWidth={2.2} aria-hidden="true" />
           </div>
 
           <span className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
