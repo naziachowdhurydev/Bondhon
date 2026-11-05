@@ -68,10 +68,10 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
 
   return (
     <main className="min-h-screen bg-background pb-20">
-      <div className="mx-auto max-w-7xl px-4 pb-8 pt-6 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 pb-10 pt-4 sm:px-6 sm:pt-5 lg:px-8 lg:pb-16 lg:pt-6">
         <Link
           href="/events"
-          className="group inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold text-muted transition hover:border-primary/40 hover:text-primary"
+          className="group inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-2 text-xs font-semibold text-muted transition hover:border-primary/40 hover:text-primary sm:text-sm"
         >
           <ArrowLeft
             size={16}
@@ -80,7 +80,7 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
           All events
         </Link>
 
-        <section className="relative mt-6 isolate min-h-105 overflow-hidden rounded-4xl bg-muted-background sm:min-h-120">
+        <section className="relative mt-4 isolate min-h-[360px] overflow-hidden rounded-3xl bg-muted-background sm:mt-5 sm:min-h-[400px] sm:rounded-4xl lg:min-h-[480px]">
           {event.thumbnail ? (
             <div
               role="img"
@@ -92,31 +92,31 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
           <div className="absolute inset-0 -z-10 bg-linear-to-r from-background via-background/85 to-background/35" />
           <div className="absolute inset-0 -z-10 bg-linear-to-t from-background/70 via-transparent to-transparent" />
 
-          <div className="flex min-h-105 flex-col justify-end p-6 sm:min-h-120 sm:p-12 lg:max-w-4xl">
-            <div className="mb-5 flex flex-wrap items-center gap-2">
-              <span className="inline-flex w-fit items-center gap-2 rounded-full border border-border bg-card/90 px-4 py-2 text-sm font-semibold text-primary backdrop-blur">
+          <div className="flex min-h-[360px] flex-col justify-end p-5 sm:min-h-[400px] sm:p-7 lg:min-h-[480px] lg:p-12 lg:max-w-4xl">
+            <div className="mb-4 flex flex-wrap items-center gap-2 sm:mb-5">
+              <span className="inline-flex w-fit items-center gap-2 rounded-full border border-border bg-card/90 px-3.5 py-1.5 text-xs font-semibold text-primary backdrop-blur sm:px-4 sm:py-2 sm:text-sm">
                 <span className="h-2 w-2 rounded-full bg-primary" />
                 {event.eventType}
               </span>
               {isCreatedByUser && (
-                <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-secondary px-4 py-2 text-sm font-semibold text-white">
+                <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-secondary px-3.5 py-1.5 text-xs font-semibold text-white sm:px-4 sm:py-2 sm:text-sm">
                   <BadgeCheck size={16} />
                   Created by you
                 </span>
               )}
             </div>
 
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+            <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary sm:mb-3 sm:text-sm sm:tracking-[0.2em]">
               Come be part of something good
             </p>
-            <h1 className="max-w-3xl text-4xl font-bold leading-tight text-foreground sm:text-5xl lg:text-6xl">
+            <h1 className="max-w-3xl text-3xl font-bold leading-tight text-foreground sm:text-4xl md:text-[2.75rem] lg:text-6xl">
               {event.title}
             </h1>
-            <p className="mt-5 max-w-2xl text-base leading-7 text-muted sm:text-lg">
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-muted sm:mt-4 sm:text-base sm:leading-7 lg:mt-5 lg:text-lg">
               {event.description}
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium text-foreground">
+            <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2.5 text-xs font-medium text-foreground sm:mt-6 sm:gap-x-6 sm:gap-y-3 sm:text-sm lg:mt-8">
               <span className="inline-flex items-center gap-2">
                 <CalendarDays size={17} className="text-primary" />
                 {Number.isNaN(eventDate.getTime())
@@ -135,46 +135,46 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
           </div>
         </section>
 
-        <div className="relative z-10 mx-auto -mt-5 grid max-w-6xl gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-8">
-          <div className="space-y-6">
-            <section className="rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-8">
-              <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-accent-light text-primary">
-                  <HeartHandshake size={24} />
+        <div className="relative z-10 mx-auto -mt-4 grid max-w-6xl gap-4 sm:-mt-5 sm:gap-5 md:grid-cols-[minmax(0,1fr)_280px] lg:gap-8 lg:grid-cols-[minmax(0,1fr)_360px]">
+          <div className="space-y-4 sm:space-y-5 lg:space-y-6">
+            <section className="rounded-2xl border border-border bg-card p-4 shadow-sm sm:rounded-3xl sm:p-6 lg:p-8">
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent-light text-primary sm:h-12 sm:w-12 sm:rounded-2xl">
+                  <HeartHandshake size={21} className="sm:h-6 sm:w-6" />
                 </div>
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">
                     The cause
                   </p>
-                  <h2 className="mt-1 text-2xl font-bold text-foreground">
+                  <h2 className="mt-1 text-xl font-bold text-foreground sm:text-2xl">
                     About this event
                   </h2>
                 </div>
               </div>
 
-              <p className="mt-6 whitespace-pre-line text-base leading-8 text-muted">
+              <p className="mt-4 whitespace-pre-line text-sm leading-7 text-muted sm:mt-6 sm:text-base sm:leading-8">
                 {event.description}
               </p>
             </section>
 
-            <section className="rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-8">
+            <section className="rounded-2xl border border-border bg-card p-4 shadow-sm sm:rounded-3xl sm:p-6 lg:p-8">
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.18em] text-secondary">
                     Better together
                   </p>
-                  <h2 className="mt-1 text-2xl font-bold text-foreground">
+                  <h2 className="mt-1 text-xl font-bold text-foreground sm:text-2xl">
                     The community
                   </h2>
                 </div>
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-light text-secondary">
-                  <Users size={23} />
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-light text-secondary sm:h-12 sm:w-12 sm:rounded-2xl">
+                  <Users size={20} className="sm:h-[23px] sm:w-[23px]" />
                 </div>
               </div>
 
-              <div className="mt-6 flex items-center gap-4 rounded-2xl bg-muted-background p-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-card text-primary shadow-sm">
-                  <UserRound size={22} />
+              <div className="mt-4 flex items-center gap-3 rounded-xl bg-muted-background p-3 sm:mt-6 sm:gap-4 sm:rounded-2xl sm:p-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-card text-primary shadow-sm sm:h-12 sm:w-12">
+                  <UserRound size={19} className="sm:h-[22px] sm:w-[22px]" />
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs font-medium text-muted">Hosted by</p>
@@ -194,9 +194,9 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
                 />
               </div>
 
-              <div className="mt-6 flex items-end justify-between border-t border-border pt-5">
+              <div className="mt-4 flex items-end justify-between border-t border-border pt-4 sm:mt-6 sm:pt-5">
                 <div>
-                  <p className="text-3xl font-bold text-foreground">
+                  <p className="text-2xl font-bold text-foreground sm:text-3xl">
                     {participantCount}
                   </p>
                   <p className="mt-1 text-sm text-muted">
@@ -238,19 +238,19 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
             </section>
           </div>
 
-          <aside className="lg:pt-8">
-            <div className="overflow-hidden rounded-3xl border border-border bg-card shadow-lg shadow-[#5B3827]/5 lg:sticky lg:top-24">
-              <div className="border-b border-border bg-muted-background px-6 py-5 text-foreground">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+          <aside className="md:pt-5 lg:pt-8">
+            <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-lg shadow-[#5B3827]/5 sm:rounded-3xl md:sticky md:top-24">
+              <div className="border-b border-border bg-muted-background px-4 py-4 text-foreground sm:px-6 sm:py-5">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-primary sm:text-xs sm:tracking-[0.18em]">
                   Your next good thing
                 </p>
-                <h2 className="mt-1 text-xl font-bold">Event details</h2>
+                <h2 className="mt-1 text-lg font-bold sm:text-xl">Event details</h2>
               </div>
 
-              <div className="space-y-5 p-6">
-                <div className="flex gap-4">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent-light text-primary">
-                    <CalendarDays size={19} />
+              <div className="space-y-4 p-4 sm:space-y-5 sm:p-6">
+                <div className="flex gap-3 sm:gap-4">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent-light text-primary sm:h-10 sm:w-10">
+                    <CalendarDays size={17} className="sm:h-[19px] sm:w-[19px]" />
                   </span>
                   <div className="min-w-0 pt-0.5">
                     <p className="text-xs font-medium text-muted">Date</p>
@@ -266,9 +266,9 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
                   </div>
                 </div>
 
-                <div className="flex gap-4">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent-light text-primary">
-                    <Clock3 size={19} />
+                <div className="flex gap-3 sm:gap-4">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent-light text-primary sm:h-10 sm:w-10">
+                    <Clock3 size={17} className="sm:h-[19px] sm:w-[19px]" />
                   </span>
                   <div className="min-w-0 pt-0.5">
                     <p className="text-xs font-medium text-muted">Time</p>
@@ -283,9 +283,9 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
                   </div>
                 </div>
 
-                <div className="flex gap-4">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent-light text-secondary">
-                    <MapPin size={19} />
+                <div className="flex gap-3 sm:gap-4">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent-light text-secondary sm:h-10 sm:w-10">
+                    <MapPin size={17} className="sm:h-[19px] sm:w-[19px]" />
                   </span>
                   <div className="min-w-0 pt-0.5">
                     <p className="text-xs font-medium text-muted">Location</p>
@@ -295,9 +295,9 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
                   </div>
                 </div>
 
-                <div className="flex gap-4">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent-light text-primary">
-                    <Tag size={19} />
+                <div className="flex gap-3 sm:gap-4">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent-light text-primary sm:h-10 sm:w-10">
+                    <Tag size={17} className="sm:h-[19px] sm:w-[19px]" />
                   </span>
                   <div className="min-w-0 pt-0.5">
                     <p className="text-xs font-medium text-muted">Category</p>
@@ -307,7 +307,7 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
                   </div>
                 </div>
 
-                <div className="border-t border-border pt-5">
+                <div className="border-t border-border pt-4 sm:pt-5">
                   <JoinEventButton
                     eventId={event._id}
                     creatorId={event.creator?.userId}
@@ -336,7 +336,7 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
                     <div className="mt-3 flex justify-center">
                       <Link
                         href="/manage-events"
-                        className="inline-flex items-center justify-center gap-2 rounded-xl border border-primary/30 px-4 py-3 text-sm font-semibold text-primary transition hover:bg-accent-light"
+                        className="inline-flex items-center justify-center gap-2 rounded-xl border border-primary/30 px-4 py-2.5 text-xs font-semibold text-primary transition hover:bg-accent-light sm:px-4 sm:py-3 sm:text-sm"
                       >
                         <Pencil size={17} />
                         Manage Events

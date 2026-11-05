@@ -42,15 +42,15 @@ export const EventDetailsSkeleton = () => (
   <main className="min-h-screen bg-background pb-20">
     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
       <Skeleton className="h-10 w-32 rounded-full" />
-      <div className="mt-6 flex min-h-105 flex-col justify-end rounded-4xl bg-muted-background p-6 sm:min-h-120 sm:p-12">
+      <div className="mt-4 flex min-h-[360px] flex-col justify-end rounded-3xl bg-muted-background p-5 sm:mt-5 sm:min-h-[400px] sm:rounded-4xl sm:p-7 lg:min-h-[480px] lg:p-12">
         <Skeleton className="h-9 w-36 rounded-full" />
         <Skeleton className="mt-5 h-5 w-56" />
         <Skeleton className="mt-4 h-14 w-full max-w-2xl" />
         <Skeleton className="mt-4 h-5 w-full max-w-xl" />
         <Skeleton className="mt-8 h-5 w-64" />
       </div>
-      <div className="mx-auto mt-6 grid max-w-6xl gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
-        <div className="space-y-6">
+      <div className="mx-auto mt-4 grid max-w-6xl gap-4 sm:mt-5 sm:gap-5 md:grid-cols-[minmax(0,1fr)_280px] lg:gap-8 lg:grid-cols-[minmax(0,1fr)_360px]">
+        <div className="space-y-4 sm:space-y-5 lg:space-y-6">
           <Skeleton className="h-48 rounded-3xl" />
           <Skeleton className="h-64 rounded-3xl" />
         </div>
