@@ -9,10 +9,13 @@ import {
   Sprout,
   HandHeart,
   BookOpen,
+  Mail,
+  Sparkles,
 } from "lucide-react";
 
 import { api } from "@/lib/api";
 import type { Event } from "@/types/event";
+import NewsletterForm from "@/components/home/NewsletterForm";
 
 const galleryImages = [
   {
@@ -402,6 +405,78 @@ const HomePageContent = async () => {
               trees to supporting neighbors, every shared effort helps build a
               more caring and connected community.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter */}
+      <section
+        aria-labelledby="newsletter-heading"
+        className="bg-background px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
+      >
+        <div className="relative isolate mx-auto max-w-7xl overflow-hidden rounded-3xl bg-footer px-6 py-10 text-white sm:px-10 sm:py-14 lg:px-14 lg:py-16">
+          <div
+            aria-hidden="true"
+            className="absolute -top-32 -right-20 -z-10 h-80 w-80 rounded-full bg-primary/25 blur-3xl"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute -bottom-40 left-1/3 -z-10 h-72 w-72 rounded-full bg-secondary/20 blur-3xl"
+          />
+
+          <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+            <div className="max-w-2xl">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-2 text-sm font-medium text-white/85">
+                <Mail size={16} className="text-accent" />
+                A little good in your inbox
+              </span>
+
+              <h2
+                id="newsletter-heading"
+                className="mt-6 text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl"
+              >
+                Stay close to the{" "}
+                <span className="text-accent">good happening</span> around you.
+              </h2>
+              <p className="mt-4 max-w-xl leading-7 text-white/70 sm:text-lg">
+                Get a thoughtful round-up of upcoming community events,
+                volunteer stories, and simple ways to make a difference with
+                Bondhon.
+              </p>
+
+              <div className="mt-8">
+                <NewsletterForm />
+              </div>
+              <p className="mt-3 text-xs text-white/50">
+                Just community, kindness, and opportunities to get involved.
+              </p>
+            </div>
+
+            <div className="relative mx-auto flex min-h-64 w-full max-w-sm items-center justify-center">
+              <div
+                aria-hidden="true"
+                className="absolute h-56 w-56 rounded-full border border-white/10"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute h-44 w-44 rounded-full border border-white/10"
+              />
+              <div className="relative flex h-28 w-28 items-center justify-center rounded-3xl bg-primary text-white shadow-2xl shadow-primary/20">
+                <HeartHandshake size={54} strokeWidth={1.5} />
+                <span className="absolute -top-3 -right-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-accent text-footer shadow-lg">
+                  <Sparkles size={20} />
+                </span>
+              </div>
+
+              <div className="absolute top-7 right-0 rounded-2xl border border-white/10 bg-white/10 px-4 py-3 backdrop-blur-sm sm:right-2">
+                <p className="text-xs text-white/60">Small steps</p>
+                <p className="mt-1 text-sm font-semibold">Big-hearted impact</p>
+              </div>
+              <div className="absolute bottom-6 left-0 rounded-2xl border border-white/10 bg-white/10 px-4 py-3 backdrop-blur-sm sm:left-2">
+                <p className="text-xs text-white/60">Made for</p>
+                <p className="mt-1 text-sm font-semibold">our community</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
