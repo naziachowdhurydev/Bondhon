@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Eye, EyeOff, HeartHandshake } from "lucide-react";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
+import GoogleIcon, { GithubIcon } from "./GoogleIcon";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -68,6 +69,9 @@ export default function LoginForm() {
       const { error } = await authClient.signIn.social({
         provider,
         callbackURL: getCallbackURL(),
+        ...(provider === "google"
+          ? { additionalParams: { prompt: "select_account" } }
+          : {}),
       });
 
       if (error) {
@@ -160,8 +164,9 @@ export default function LoginForm() {
             type="button"
             disabled={loading}
             onClick={() => handleSocialLogin("google")}
-            className="rounded-xl border border-border px-3 py-3 text-sm font-medium text-foreground transition hover:bg-card-hover disabled:opacity-60"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-border px-3 py-3 text-sm font-semibold text-foreground transition hover:border-primary/40 hover:bg-card-hover disabled:opacity-60"
           >
+            <GoogleIcon />
             Google
           </button>
 
@@ -169,8 +174,9 @@ export default function LoginForm() {
             type="button"
             disabled={loading}
             onClick={() => handleSocialLogin("github")}
-            className="rounded-xl border border-border px-3 py-3 text-sm font-medium text-foreground transition hover:bg-card-hover disabled:opacity-60"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-border px-3 py-3 text-sm font-semibold text-foreground transition hover:border-primary/40 hover:bg-card-hover disabled:opacity-60"
           >
+            <GithubIcon />
             GitHub
           </button>
         </div>
