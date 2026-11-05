@@ -77,20 +77,20 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-card/95 backdrop-blur-md">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white">
-            <CalendarDays size={23} />
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-white sm:h-10 sm:w-10">
+            <CalendarDays size={20} className="sm:h-[22px] sm:w-[22px]" />
           </div>
 
-          <span className="text-2xl font-bold tracking-tight text-foreground">
+          <span className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
             Bond<span className="text-primary">hon</span>
           </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden items-center gap-7 lg:flex">
+        <div className="hidden items-center gap-3 min-[900px]:flex xl:gap-5">
           {navLinks.map((link) => {
             const isActive =
               link.href === "/"
@@ -102,7 +102,7 @@ const Navbar = () => {
                 key={link.href}
                 href={link.href}
                 aria-current={isActive ? "page" : undefined}
-                className={`relative rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+                className={`relative rounded-full px-3 py-2 text-[13px] font-semibold transition-colors xl:px-4 xl:text-sm ${
                   isActive
                     ? "bg-accent-light text-primary"
                     : "text-muted hover:bg-muted-background hover:text-primary"
@@ -118,7 +118,7 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Authentication */}
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden items-center gap-2 min-[900px]:flex xl:gap-3">
           <ThemeToggle />
           {isPending ? (
             <div className="h-9 w-24 animate-pulse rounded-lg bg-muted-background" />
@@ -137,12 +137,12 @@ const Navbar = () => {
                     alt={user.name || "User"}
                     width={32}
                     height={32}
-                    className="h-8 w-8 rounded-full object-cover"
+                    className="h-7 w-7 rounded-full object-cover"
                     unoptimized
                   />
                 ) : (
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-accent-light text-primary">
-                    <UserRound size={18} />
+                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-accent-light text-primary">
+                    <UserRound size={16} />
                   </div>
                 )}
 
@@ -190,14 +190,14 @@ const Navbar = () => {
             <>
               <Link
                 href="/login"
-                className="rounded-lg px-4 py-2 text-sm font-semibold text-foreground transition hover:text-primary"
+                className="rounded-lg px-3 py-2 text-sm font-semibold text-foreground transition hover:text-primary"
               >
                 Login
               </Link>
 
               <Link
                 href="/signup"
-                className="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-hover"
+                className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary-hover"
               >
                 Sign Up
               </Link>
@@ -207,17 +207,18 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <button
+          type="button"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="rounded-lg p-2 text-foreground hover:bg-muted-background lg:hidden"
+          className="flex h-9 w-9 items-center justify-center rounded-lg text-foreground hover:bg-muted-background min-[900px]:hidden"
           aria-label="Toggle navigation menu"
         >
-          {isMenuOpen ? <X size={25} /> : <Menu size={25} />}
+          {isMenuOpen ? <X size={19} /> : <Menu size={19} />}
         </button>
       </nav>
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="border-t border-border bg-card px-4 py-5 lg:hidden">
+        <div className="border-t border-border bg-card px-4 py-5 min-[900px]:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-2">
             {navLinks.map((link) => {
               const isActive =

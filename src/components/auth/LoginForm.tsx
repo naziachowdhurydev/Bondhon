@@ -83,13 +83,13 @@ export default function LoginForm() {
 
   return (
     <section className="flex min-h-[80vh] items-center justify-center bg-background px-4 py-12">
-      <div className="w-full max-w-md rounded-3xl border border-border bg-card p-6 shadow-lg sm:p-9">
-        <div className="mb-7 text-center">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-white">
-            <HeartHandshake size={30} />
+      <div className="w-full max-w-[26rem] rounded-3xl border border-border bg-card p-6 shadow-lg sm:p-8">
+        <div className="mb-6 text-center">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-white">
+            <HeartHandshake size={26} />
           </div>
 
-          <h1 className="mt-5 text-3xl font-bold text-foreground">
+          <h1 className="mt-4 text-2xl font-bold text-foreground sm:text-[1.7rem]">
             Welcome Back
           </h1>
 
@@ -109,7 +109,7 @@ export default function LoginForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
-              className="w-full rounded-xl border border-border bg-background px-4 py-3 text-foreground outline-none transition focus:border-primary"
+              className="w-full rounded-xl border border-border bg-background px-4 py-2.5 text-sm text-foreground outline-none transition focus:border-primary"
               required
             />
           </div>
@@ -125,7 +125,7 @@ export default function LoginForm() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="w-full rounded-xl border border-border bg-background px-4 py-3 pr-12 text-foreground outline-none transition focus:border-primary"
+                className="w-full rounded-xl border border-border bg-background px-4 py-2.5 pr-12 text-sm text-foreground outline-none transition focus:border-primary"
                 required
               />
 

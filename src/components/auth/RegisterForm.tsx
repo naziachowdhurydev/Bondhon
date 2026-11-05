@@ -112,14 +112,14 @@ export default function RegisterForm() {
   };
 
   return (
-    <section className="flex min-h-[80vh] items-center justify-center bg-background px-4 py-12">
-      <div className="w-full max-w-md rounded-3xl border border-border bg-card p-6 shadow-lg sm:p-9">
-        <div className="mb-7 text-center">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-white">
-            <HeartHandshake size={30} />
+    <section className="flex min-h-[80vh] items-center justify-center bg-background px-4 py-5 sm:py-6">
+      <div className="w-full max-w-3xl rounded-3xl border border-border bg-card p-5 shadow-lg sm:p-6">
+        <div className="mb-5 text-center">
+          <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white">
+            <HeartHandshake size={23} />
           </div>
 
-          <h1 className="mt-5 text-3xl font-bold text-foreground">
+          <h1 className="mt-3 text-2xl font-bold text-foreground">
             Create an Account
           </h1>
 
@@ -128,9 +128,12 @@ export default function RegisterForm() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form
+          onSubmit={handleSubmit}
+          className="grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-2"
+        >
           <div>
-            <label className="mb-2 block text-sm font-medium text-foreground">
+            <label className="mb-1.5 block text-sm font-medium text-foreground">
               Full Name
             </label>
 
@@ -139,13 +142,13 @@ export default function RegisterForm() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Enter your full name"
-              className="w-full rounded-xl border border-border bg-background px-4 py-3 text-foreground outline-none transition focus:border-primary"
+              className="w-full rounded-xl border border-border bg-background px-4 py-2 text-sm text-foreground outline-none transition focus:border-primary"
               required
             />
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-medium text-foreground">
+            <label className="mb-1.5 block text-sm font-medium text-foreground">
               Email Address
             </label>
 
@@ -154,7 +157,7 @@ export default function RegisterForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
-              className="w-full rounded-xl border border-border bg-background px-4 py-3 text-foreground outline-none transition focus:border-primary"
+              className="w-full rounded-xl border border-border bg-background px-4 py-2 text-sm text-foreground outline-none transition focus:border-primary"
               required
             />
           </div>
@@ -162,7 +165,7 @@ export default function RegisterForm() {
           <div>
             <label
               htmlFor="signup-image"
-              className="mb-2 block text-sm font-medium text-foreground"
+              className="mb-1.5 block text-sm font-medium text-foreground"
             >
               Profile Image URL{" "}
               <span className="font-normal text-muted">(Optional)</span>
@@ -175,15 +178,15 @@ export default function RegisterForm() {
               value={image}
               onChange={(event) => setImage(event.target.value)}
               placeholder="https://example.com/your-photo.jpg"
-              className="w-full rounded-xl border border-border bg-background px-4 py-3 text-foreground outline-none transition focus:border-primary"
+              className="w-full rounded-xl border border-border bg-background px-4 py-2 text-sm text-foreground outline-none transition focus:border-primary"
             />
-            <p className="mt-2 text-xs text-muted">
-              You can add or change your profile image later from your profile.
+            <p className="mt-1 text-[11px] leading-4 text-muted">
+              Optional. You can add or change this later in your profile.
             </p>
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-medium text-foreground">
+            <label className="mb-1.5 block text-sm font-medium text-foreground">
               Password
             </label>
 
@@ -193,7 +196,7 @@ export default function RegisterForm() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Create a password"
-                className="w-full rounded-xl border border-border bg-background px-4 py-3 pr-12 text-foreground outline-none transition focus:border-primary"
+                className="w-full rounded-xl border border-border bg-background px-4 py-2 pr-12 text-sm text-foreground outline-none transition focus:border-primary"
                 required
               />
 
@@ -207,13 +210,13 @@ export default function RegisterForm() {
               </button>
             </div>
 
-            <p className="mt-2 text-xs text-muted">
-              At least 6 characters, including uppercase and lowercase letters.
+            <p className="mt-1 text-[11px] leading-4 text-muted">
+              6+ characters with uppercase and lowercase letters.
             </p>
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-medium text-foreground">
+            <label className="mb-1.5 block text-sm font-medium text-foreground">
               Confirm Password
             </label>
 
@@ -223,7 +226,7 @@ export default function RegisterForm() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm your password"
-                className="w-full rounded-xl border border-border bg-background px-4 py-3 pr-12 text-foreground outline-none transition focus:border-primary"
+                className="w-full rounded-xl border border-border bg-background px-4 py-2 pr-12 text-sm text-foreground outline-none transition focus:border-primary"
                 required
               />
 
@@ -241,13 +244,13 @@ export default function RegisterForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-xl bg-primary py-3 font-semibold text-white transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60"
+            className="w-full self-end rounded-xl bg-primary py-2.5 font-semibold text-white transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60"
           >
             {loading ? "Creating Account..." : "Create Account"}
           </button>
         </form>
 
-        <div className="my-6 flex items-center gap-3">
+        <div className="my-4 flex items-center gap-3">
           <div className="h-px flex-1 bg-border" />
           <span className="text-xs text-muted">OR CONTINUE WITH</span>
           <div className="h-px flex-1 bg-border" />
@@ -258,7 +261,7 @@ export default function RegisterForm() {
             type="button"
             disabled={loading}
             onClick={() => handleSocialLogin("google")}
-            className="rounded-xl border border-border px-3 py-3 text-sm font-medium text-foreground transition hover:bg-card-hover disabled:opacity-60"
+            className="rounded-xl border border-border px-3 py-2.5 text-sm font-medium text-foreground transition hover:bg-card-hover disabled:opacity-60"
           >
             Google
           </button>
@@ -267,13 +270,13 @@ export default function RegisterForm() {
             type="button"
             disabled={loading}
             onClick={() => handleSocialLogin("github")}
-            className="rounded-xl border border-border px-3 py-3 text-sm font-medium text-foreground transition hover:bg-card-hover disabled:opacity-60"
+            className="rounded-xl border border-border px-3 py-2.5 text-sm font-medium text-foreground transition hover:bg-card-hover disabled:opacity-60"
           >
             GitHub
           </button>
         </div>
 
-        <p className="mt-7 text-center text-sm text-muted">
+        <p className="mt-4 text-center text-sm text-muted">
           Already have an account?{" "}
           <Link
             href="/login"
