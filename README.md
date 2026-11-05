@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bondhon – Community Event Platform
 
-## Getting Started
+Bondhon is a community event platform where users can explore events, create their own events, and join activities to make a positive impact in their communities.
 
-First, run the development server:
+## Features
+
+- User registration and login
+- Google and GitHub authentication
+- Explore upcoming events
+- View event details
+- Create and manage events
+- Join and leave events
+- View created and joined events
+- Responsive design
+
+## Technologies
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Better Auth
+- JWT Authentication
+- React Toastify
+- Lucide React
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone YOUR_REPOSITORY_URL
+```
+
+Go to the project folder:
+
+```bash
+cd kindlink-client
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env.local` file and add your environment variables.
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Backend
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Bondhon uses a separate Express.js and TypeScript backend with MongoDB for database management and API operations.
 
-## Learn More
+## Live Website
 
-To learn more about Next.js, take a look at the following resources:
+https://bondhon-web.vercel.app
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Author
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Nazia Chowdhury**
