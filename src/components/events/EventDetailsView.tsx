@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
   ArrowUpRight,
+  BadgeCheck,
   CalendarDays,
   Clock3,
   HeartHandshake,
@@ -15,13 +17,21 @@ import {
 } from "lucide-react";
 import type { Event, EventParticipant } from "@/types/event";
 import JoinEventButton from "./JoinEventButton";
-import Image from "next/image";
+import EventDeleteButton from "./EventDeleteButton";
+import { authClient } from "@/lib/auth-client";
 
 interface EventDetailsViewProps {
   event: Event;
 }
 
 const EventDetailsView = ({ event }: EventDetailsViewProps) => {
+  const router = useRouter();
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+  const isCreatedByUser =
+    Boolean(user) &&
+    (event.creator?.userId === user?.id ||
+      event.creator?.email?.toLowerCase() === user?.email.toLowerCase());
   const [updatedParticipants, setUpdatedParticipants] = useState<{
     eventId: string;
     participants: EventParticipant[];
@@ -64,23 +74,29 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
 
         <section className="relative mt-6 isolate min-h-105 overflow-hidden rounded-[2rem] bg-muted-background sm:min-h-120">
           {event.thumbnail ? (
-            <Image
-              src={event.thumbnail}
-              alt={event.title}
-              className="absolute inset-0 -z-20 h-full w-full object-cover"
-              width={1600}
-              height={900}
-              priority
+            <div
+              role="img"
+              aria-label={event.title}
+              className="absolute inset-0 -z-20 bg-cover bg-center"
+              style={{ backgroundImage: `url("${event.thumbnail}")` }}
             />
           ) : null}
           <div className="absolute inset-0 -z-10 bg-linear-to-r from-background via-background/85 to-background/35" />
           <div className="absolute inset-0 -z-10 bg-linear-to-t from-background/70 via-transparent to-transparent" />
 
           <div className="flex min-h-105 flex-col justify-end p-6 sm:min-h-120 sm:p-12 lg:max-w-4xl">
-            <span className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-border bg-card/90 px-4 py-2 text-sm font-semibold text-primary backdrop-blur">
-              <span className="h-2 w-2 rounded-full bg-primary" />
-              {event.eventType}
-            </span>
+            <div className="mb-5 flex flex-wrap items-center gap-2">
+              <span className="inline-flex w-fit items-center gap-2 rounded-full border border-border bg-card/90 px-4 py-2 text-sm font-semibold text-primary backdrop-blur">
+                <span className="h-2 w-2 rounded-full bg-primary" />
+                {event.eventType}
+              </span>
+              {isCreatedByUser && (
+                <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-secondary px-4 py-2 text-sm font-semibold text-white">
+                  <BadgeCheck size={16} />
+                  Created by you
+                </span>
+              )}
+            </div>
 
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary">
               Come be part of something good
@@ -296,7 +312,6 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
                 <div className="border-t border-border pt-5">
                   <JoinEventButton
                     eventId={event._id}
-                    creatorId={event.creator?.userId || ""}
                     participantIds={participants
                       .map((person) => person.userId)
                       .filter((id): id is string => Boolean(id))}
@@ -317,6 +332,12 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
                       })
                     }
                   />
+                  <div className="mt-3">
+                    <EventDeleteButton
+                      event={event}
+                      onDeleted={() => router.push("/events")}
+                    />
+                  </div>
                   <p className="mt-3 text-center text-xs leading-5 text-muted">
                     Every helping hand makes a difference.
                   </p>

@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
 import EventCard from "./EventCard";
 import type { Event } from "@/types/event";
+import { authClient } from "@/lib/auth-client";
 
 interface EventsPageClientProps {
   events: Event[];
@@ -22,6 +23,8 @@ const eventTypes = [
 const EventsPageClient = ({ events }: EventsPageClientProps) => {
   const [search, setSearch] = useState("");
   const [selectedType, setSelectedType] = useState("All");
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
 
   const filteredEvents = useMemo(() => {
     return events.filter((event) => {
@@ -87,7 +90,16 @@ const EventsPageClient = ({ events }: EventsPageClientProps) => {
       {filteredEvents.length > 0 ? (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredEvents.map((event) => (
-            <EventCard key={event._id} event={event} />
+            <EventCard
+              key={event._id}
+              event={event}
+              isCreatedByUser={
+                Boolean(user) &&
+                (event.creator?.userId === user?.id ||
+                  event.creator?.email?.toLowerCase() ===
+                    user?.email.toLowerCase())
+              }
+            />
           ))}
         </div>
       ) : (

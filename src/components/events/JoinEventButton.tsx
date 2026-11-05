@@ -11,7 +11,6 @@ import type { Event } from "@/types/event";
 
 interface JoinEventButtonProps {
   eventId: string;
-  creatorId: string;
   participantIds: string[];
   participantEmails: string[];
   isPastEvent: boolean;
@@ -24,7 +23,6 @@ const buttonClassName =
 
 const JoinEventButton = ({
   eventId,
-  creatorId,
   participantIds,
   participantEmails,
   isPastEvent,
@@ -124,14 +122,6 @@ const JoinEventButton = ({
       <Link href="/login" className={buttonClassName}>
         Sign in to join
       </Link>
-    );
-  }
-
-  if (userId === creatorId) {
-    return (
-      <button type="button" className={buttonClassName} disabled>
-        Your event
-      </button>
     );
   }
 

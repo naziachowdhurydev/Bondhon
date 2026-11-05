@@ -10,11 +10,26 @@ interface ApiResponse<T> {
   data: T;
 }
 
+export type EventCreateInput = Pick<
+  Event,
+  | "title"
+  | "description"
+  | "eventType"
+  | "thumbnail"
+  | "location"
+  | "eventDate"
+  | "creator"
+>;
+
 interface JoinEventResponse extends ApiResponse<Event> {
   alreadyJoined: boolean;
 }
 
 type LeaveEventResponse = ApiResponse<Event>;
+interface DeleteEventResponse {
+  success?: boolean;
+  message?: string;
+}
 
 const getHeaders = async () => {
   const { data, error } = await authClient.token();
@@ -60,8 +75,8 @@ const request = async <T = unknown>(
 };
 
 export const authApi = {
-  createEvent: (eventData: object) =>
-    request("/api/events", {
+  createEvent: (eventData: EventCreateInput) =>
+    request<ApiResponse<Event>>("/api/events", {
       method: "POST",
       body: JSON.stringify(eventData),
     }),
@@ -73,7 +88,7 @@ export const authApi = {
     }),
 
   deleteEvent: (id: string) =>
-    request(`/api/events/${id}`, {
+    request<DeleteEventResponse>(`/api/events/${id}`, {
       method: "DELETE",
     }),
 

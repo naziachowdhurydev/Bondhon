@@ -1,13 +1,20 @@
 import Link from "next/link";
-import { CalendarDays, MapPin, ArrowUpRight, Users } from "lucide-react";
+import {
+  BadgeCheck,
+  CalendarDays,
+  MapPin,
+  ArrowUpRight,
+  Users,
+} from "lucide-react";
 
 import type { Event } from "@/types/event";
 
 interface EventCardProps {
   event: Event;
+  isCreatedByUser: boolean;
 }
 
-const EventCard = ({ event }: EventCardProps) => {
+const EventCard = ({ event, isCreatedByUser }: EventCardProps) => {
   const formattedDate = new Date(event.eventDate).toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
@@ -21,9 +28,11 @@ const EventCard = ({ event }: EventCardProps) => {
         role="img"
         aria-label={event.title}
         className="relative h-52 overflow-hidden bg-accent-light bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.01]"
-        style={{
-          backgroundImage: `url("${event.thumbnail}")`,
-        }}
+        style={
+          event.thumbnail
+            ? { backgroundImage: `url("${event.thumbnail}")` }
+            : undefined
+        }
       >
         <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent" />
 
@@ -39,9 +48,17 @@ const EventCard = ({ event }: EventCardProps) => {
 
       {/* Event Information */}
       <div className="p-5">
-        <h3 className="line-clamp-2 min-h-14 text-lg font-bold leading-7 text-foreground transition-colors duration-200 group-hover:text-primary">
-          {event.title}
-        </h3>
+        <div className="flex min-h-14 items-start justify-between gap-2">
+          <h3 className="line-clamp-2 min-w-0 flex-1 text-lg leading-7 font-bold text-foreground transition-colors duration-200 group-hover:text-primary">
+            {event.title}
+          </h3>
+          {isCreatedByUser && (
+            <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-secondary px-2.5 py-1.5 text-[10px] leading-4 font-bold text-white">
+              <BadgeCheck size={13} />
+              Created by you
+            </span>
+          )}
+        </div>
 
         <p className="mt-2 line-clamp-2 min-h-10 text-sm leading-5 text-muted">
           {event.description}
