@@ -18,11 +18,7 @@ import {
 import type { Event, EventParticipant } from "@/types/event";
 import JoinEventButton from "./JoinEventButton";
 import { authClient } from "@/lib/auth-client";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface EventDetailsViewProps {
   event: Event;
@@ -84,7 +80,7 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
           All events
         </Link>
 
-        <section className="relative mt-6 isolate min-h-105 overflow-hidden rounded-[2rem] bg-muted-background sm:min-h-120">
+        <section className="relative mt-6 isolate min-h-105 overflow-hidden rounded-4xl bg-muted-background sm:min-h-120">
           {event.thumbnail ? (
             <div
               role="img"
