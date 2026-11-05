@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
+import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -92,6 +93,7 @@ const Navbar = () => {
 
         {/* Desktop Authentication */}
         <div className="hidden items-center gap-3 lg:flex">
+          <ThemeToggle />
           {isPending ? (
             <div className="h-9 w-24 animate-pulse rounded-lg bg-muted-background" />
           ) : user ? (
@@ -209,6 +211,13 @@ const Navbar = () => {
             })}
 
             <div className="my-2 border-t border-border" />
+
+            <div className="flex items-center justify-between px-3 py-2">
+              <span className="text-sm font-semibold text-foreground">
+                Appearance
+              </span>
+              <ThemeToggle />
+            </div>
 
             {isPending ? (
               <p className="px-3 py-2 text-sm text-muted">Loading...</p>

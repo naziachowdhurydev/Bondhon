@@ -7,7 +7,7 @@ const NewsletterForm = () => {
         type="email"
         aria-label="Email address"
         placeholder="Enter your email address"
-        className="min-w-0 flex-1 rounded-xl border border-white/15 bg-white px-5 py-3.5 text-foreground outline-none transition placeholder:text-muted focus:border-primary"
+        className="min-w-0 flex-1 rounded-xl border border-border bg-background px-5 py-3.5 text-foreground outline-none transition placeholder:text-muted focus:border-primary"
       />
 
       <button

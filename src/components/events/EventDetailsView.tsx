@@ -157,7 +157,7 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
                     The community
                   </h2>
                 </div>
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#E7F5F2] text-secondary">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-light text-secondary">
                   <Users size={23} />
                 </div>
               </div>
@@ -284,7 +284,7 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
                 </div>
 
                 <div className="flex gap-4">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#E7F5F2] text-secondary">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent-light text-secondary">
                     <MapPin size={19} />
                   </span>
                   <div className="min-w-0 pt-0.5">

@@ -287,7 +287,7 @@ const AboutUs = async () => {
 
           <Link
             href="/events"
-            className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-white px-5 py-3 font-semibold text-primary transition hover:bg-accent-light"
+            className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 font-semibold text-primary transition hover:bg-accent-light"
           >
             Explore Events <ArrowRight size={18} />
           </Link>

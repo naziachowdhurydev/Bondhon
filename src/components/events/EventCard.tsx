@@ -36,7 +36,7 @@ const EventCard = ({ event, isCreatedByUser }: EventCardProps) => {
       >
         <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent" />
 
-        <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1.5 text-xs font-bold text-primary shadow-sm">
+        <span className="absolute left-4 top-4 rounded-full border border-border bg-card px-3 py-1.5 text-xs font-bold text-primary shadow-sm">
           {event.eventType}
         </span>
 

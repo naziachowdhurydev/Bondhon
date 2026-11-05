@@ -19,15 +19,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              'try{if(localStorage.getItem("bondhon-theme")==="dark"){document.documentElement.classList.add("dark");document.documentElement.style.colorScheme="dark"}}catch(error){console.error("Unable to load saved theme:",error)}',
+          }}
+        />
+      </head>
       <body className="flex min-h-screen flex-col bg-background text-foreground">
         <Toaster
           position="top-right"
           toastOptions={{
             duration: 3000,
             style: {
-              background: "#211A19",
-              color: "#FFF8F3",
+              background: "var(--card)",
+              color: "var(--foreground)",
+              border: "1px solid var(--border)",
               borderRadius: "12px",
             },
             success: {
