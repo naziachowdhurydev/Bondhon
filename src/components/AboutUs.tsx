@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { unstable_rethrow } from "next/navigation";
 import {
   ArrowRight,
   HandHeart,
@@ -70,6 +71,7 @@ const AboutUs = async () => {
       values = result.data;
     }
   } catch (error) {
+    unstable_rethrow(error);
     console.error("Error fetching About features:", error);
   }
 

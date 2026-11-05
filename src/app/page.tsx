@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
+import { unstable_rethrow } from "next/navigation";
 import {
   ArrowRight,
   CalendarDays,
@@ -70,6 +71,7 @@ const HomePageContent = async () => {
     const result = await api.getUpcomingEvents();
     events = (result.data ?? []).slice(0, 3);
   } catch (error) {
+    unstable_rethrow(error);
     console.error("Failed to load homepage events:", error);
   }
 
