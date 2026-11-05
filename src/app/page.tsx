@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import {
   ArrowRight,
   CalendarDays,
+  Heart,
   MapPin,
   Users,
   HeartHandshake,
@@ -97,6 +98,31 @@ const HomePageContent = async () => {
             8%, 18% { transform: scale(1.1); }
             13%, 23% { transform: scale(1); }
           }
+          @keyframes bondhon-hero-orbit {
+            from { transform: rotate(0deg) translateX(76px) rotate(0deg); }
+            to { transform: rotate(360deg) translateX(76px) rotate(-360deg); }
+          }
+          @keyframes bondhon-hero-ring {
+            0%, 100% { opacity: .45; transform: scale(.98); }
+            50% { opacity: .9; transform: scale(1.02); }
+          }
+          #bondhon-home-hero .bondhon-hero-orbit {
+            transform: translateY(-76px);
+          }
+          #bondhon-home-hero .bondhon-hero-orbit-slow {
+            transform: translate(66px, 38px);
+          }
+          #bondhon-home-hero .bondhon-hero-orbit-delay {
+            transform: translate(-66px, 38px);
+          }
+          #bondhon-home-hero .bondhon-hero-overlay {
+            background: linear-gradient(
+              90deg,
+              color-mix(in srgb, var(--background) 82%, transparent) 0%,
+              color-mix(in srgb, var(--background) 64%, transparent) 48%,
+              color-mix(in srgb, var(--background) 28%, transparent) 100%
+            );
+          }
           @media (prefers-reduced-motion: no-preference) {
             #bondhon-home-hero .bondhon-hero-reveal {
               animation: bondhon-hero-reveal 700ms cubic-bezier(.2,.8,.2,1) both;
@@ -114,41 +140,54 @@ const HomePageContent = async () => {
             #bondhon-home-hero .bondhon-hero-heartbeat {
               animation: bondhon-hero-heartbeat 4s ease-in-out infinite;
             }
+            #bondhon-home-hero .bondhon-hero-orbit {
+              animation: bondhon-hero-orbit 22s linear infinite;
+            }
+            #bondhon-home-hero .bondhon-hero-orbit-slow {
+              animation-duration: 30s;
+              animation-direction: reverse;
+            }
+            #bondhon-home-hero .bondhon-hero-orbit-delay {
+              animation-delay: -11s;
+            }
+            #bondhon-home-hero .bondhon-hero-ring {
+              animation: bondhon-hero-ring 5s ease-in-out infinite;
+            }
           }
         `}</style>
         <div className="absolute inset-0 -z-10">
           <div
-            className="bondhon-hero-pan absolute inset-0 bg-cover bg-center opacity-20"
+            className="bondhon-hero-pan absolute inset-0 bg-cover bg-center opacity-40"
             style={{
               backgroundImage:
                 "url('https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=1800')",
             }}
           />
-          <div className="absolute inset-0 bg-linear-to-r from-background via-background/90 to-background/40" />
+          <div className="bondhon-hero-overlay absolute inset-0" />
         </div>
 
-        <div className="mx-auto grid min-h-155 max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8">
+        <div className="mx-auto grid min-h-155 max-w-7xl items-center gap-5 px-4 py-16 sm:px-6 md:grid-cols-[minmax(0,1.35fr)_minmax(10rem,0.65fr)] lg:grid-cols-[minmax(0,1fr)_minmax(0,0.72fr)] lg:gap-12 lg:px-8">
           <div className="max-w-2xl">
             <span className="bondhon-hero-reveal inline-flex items-center gap-2 rounded-full border border-primary/25 bg-card px-4 py-2 text-sm font-medium text-primary">
               <HeartHandshake className="bondhon-hero-heartbeat" size={17} />
               Together, We Make a Difference
             </span>
 
-            <h1 className="bondhon-hero-reveal bondhon-hero-delay-1 mt-6 text-4xl leading-tight font-extrabold text-foreground sm:text-5xl lg:text-6xl">
+            <h1 className="bondhon-hero-reveal bondhon-hero-delay-1 mt-5 text-4xl leading-tight font-extrabold text-foreground sm:text-5xl md:text-5xl lg:text-6xl">
               Small Actions.
               <span className="block text-primary">Meaningful Change.</span>
             </h1>
 
-            <p className="bondhon-hero-reveal bondhon-hero-delay-2 mt-6 max-w-xl text-base leading-8 text-muted sm:text-lg">
+            <p className="bondhon-hero-reveal bondhon-hero-delay-2 mt-5 max-w-xl text-base leading-8 text-muted sm:text-lg md:text-lg">
               Bondhon brings people together through community events,
               volunteering, and social initiatives. Discover opportunities to
               help, connect, and make a positive impact.
             </p>
 
-            <div className="bondhon-hero-reveal bondhon-hero-delay-3 mt-9">
+            <div className="bondhon-hero-reveal bondhon-hero-delay-3 mt-7">
               <Link
                 href="/events"
-                className="group inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-primary-hover hover:shadow-lg hover:shadow-primary/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                className="group inline-flex items-center gap-2 rounded-xl bg-primary px-7 py-4 text-base font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-primary-hover hover:shadow-lg hover:shadow-primary/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               >
                 Explore Events
                 <ArrowRight
@@ -159,32 +198,53 @@ const HomePageContent = async () => {
             </div>
           </div>
 
-          <div className="hidden lg:flex lg:justify-end">
-            <div className="bondhon-hero-reveal bondhon-hero-delay-4">
-              <div className="bondhon-hero-float max-w-sm rounded-3xl border border-border bg-card p-8 text-foreground shadow-xl">
-                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-white">
-                  <Users size={28} />
-                </div>
+          <div className="bondhon-hero-reveal bondhon-hero-delay-4 flex justify-center lg:justify-end">
+            <div
+              role="img"
+              aria-label="Community icons orbiting a shared meeting point"
+              className="relative flex aspect-square w-full max-w-[17rem] items-center justify-center"
+            >
+              <div className="absolute inset-1 rounded-full border border-dashed border-border/80" />
+              <div className="absolute inset-6 rounded-full border border-border/60" />
+              <div className="bondhon-hero-ring absolute inset-12 rounded-full border border-secondary/30" />
 
-                <h2 className="text-2xl font-bold">
-                  Be Part of Something Good
-                </h2>
-
-                <p className="mt-3 leading-7 text-muted">
-                  Every volunteer, every idea, and every small contribution can
-                  help build a stronger community.
-                </p>
-
-                <div className="mt-7 flex items-center gap-3 border-t border-border pt-5">
-                  <HeartHandshake
-                    className="bondhon-hero-heartbeat text-primary"
-                    size={25}
+              <div className="bondhon-hero-float relative flex h-28 w-28 items-center justify-center rounded-full border border-secondary/20 bg-card text-secondary shadow-xl shadow-secondary/10">
+                <div className="absolute inset-2 rounded-full border border-dashed border-secondary/40" />
+                <div className="flex h-20 w-20 items-center justify-center rounded-full bg-secondary/10">
+                  <Users
+                    className="bondhon-hero-heartbeat"
+                    size={44}
+                    strokeWidth={1.35}
+                    aria-hidden="true"
                   />
-                  <span className="text-sm font-medium">
-                    Connect. Participate. Make an Impact.
-                  </span>
                 </div>
+                <span className="absolute -right-2 top-4 flex h-10 w-10 items-center justify-center rounded-2xl bg-accent-light text-primary shadow-md">
+                  <HeartHandshake size={21} aria-hidden="true" />
+                </span>
               </div>
+
+              <span
+                aria-hidden="true"
+                className="bondhon-hero-orbit absolute left-1/2 top-1/2 z-10 -ml-5 -mt-5 flex h-10 w-10 items-center justify-center rounded-2xl border-4 border-background bg-card text-secondary shadow-lg"
+              >
+                <Sprout size={19} />
+              </span>
+              <span
+                aria-hidden="true"
+                className="bondhon-hero-orbit bondhon-hero-orbit-slow absolute left-1/2 top-1/2 z-10 -ml-5 -mt-5 flex h-10 w-10 items-center justify-center rounded-2xl border-4 border-background bg-card text-primary shadow-lg"
+              >
+                <HandHeart size={19} />
+              </span>
+              <span
+                aria-hidden="true"
+                className="bondhon-hero-orbit bondhon-hero-orbit-delay absolute left-1/2 top-1/2 z-10 -ml-5 -mt-5 flex h-10 w-10 items-center justify-center rounded-full border-4 border-background bg-primary text-white shadow-lg"
+              >
+                <Heart size={16} fill="currentColor" />
+              </span>
+
+              <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-border bg-card px-3 py-1.5 text-[0.65rem] font-medium text-muted shadow-sm">
+                Good grows together
+              </span>
             </div>
           </div>
         </div>
