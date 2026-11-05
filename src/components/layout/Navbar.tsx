@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -25,12 +25,38 @@ const navLinks = [
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const profileMenuRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
   const pathname = usePathname();
   const { data: session, isPending, error } = authClient.useSession();
 
   const user = session?.user;
+
+  useEffect(() => {
+    if (!isProfileOpen) return;
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (
+        event.target instanceof Node &&
+        !profileMenuRef.current?.contains(event.target)
+      ) {
+        setIsProfileOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsProfileOpen(false);
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isProfileOpen]);
 
   console.log("Navbar session:", session);
   console.log("Navbar user:", user);
@@ -97,9 +123,12 @@ const Navbar = () => {
           {isPending ? (
             <div className="h-9 w-24 animate-pulse rounded-lg bg-muted-background" />
           ) : user ? (
-            <div className="relative">
+            <div className="relative" ref={profileMenuRef}>
               <button
+                type="button"
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
+                aria-expanded={isProfileOpen}
+                aria-haspopup="menu"
                 className="flex items-center gap-2 rounded-full border border-border px-3 py-2 transition hover:bg-muted-background"
               >
                 {user.image ? (
@@ -125,7 +154,10 @@ const Navbar = () => {
               </button>
 
               {isProfileOpen && (
-                <div className="absolute right-0 mt-3 w-52 rounded-xl border border-border bg-card p-2 shadow-lg">
+                <div
+                  role="menu"
+                  className="absolute right-0 mt-3 w-52 rounded-xl border border-border bg-card p-2 shadow-lg"
+                >
                   <Link
                     href="/profile"
                     onClick={() => setIsProfileOpen(false)}
