@@ -53,9 +53,12 @@ const AboutUs = async () => {
   let values: AboutFeature[] = [];
 
   try {
-    const response = await fetch("http://localhost:5000/api/about/features", {
-      cache: "no-store",
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}api/about/features`,
+      {
+        cache: "no-store",
+      },
+    );
 
     if (!response.ok) {
       throw new Error("Failed to fetch About features");

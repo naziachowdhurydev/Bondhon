@@ -2,7 +2,7 @@ import { authClient } from "./auth-client";
 import type { Event } from "@/types/event";
 
 const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+  process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL}`;
 
 interface ApiResponse<T> {
   success: boolean;

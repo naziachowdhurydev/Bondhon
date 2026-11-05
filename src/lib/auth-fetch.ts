@@ -1,7 +1,7 @@
 import { authClient } from "@/lib/auth-client";
 
 const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+  process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL}`;
 
 export const authFetch = async (
   endpoint: string,
