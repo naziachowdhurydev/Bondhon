@@ -10,13 +10,18 @@ if (!uri) {
   throw new Error("BETTER_AUTH_DATABASE_URL is not configured");
 }
 
+const authBaseURL =
+  process.env.BETTER_AUTH_URL ??
+  process.env.NEXT_PUBLIC_APP_URL ??
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined);
+
 const client = new MongoClient(uri);
 const db = client.db(process.env.DB_NAME || "shobai");
 
 export const auth = betterAuth({
   database: mongodbAdapter(db, { client }),
 
-  baseURL: process.env.BETTER_AUTH_URL,
+  baseURL: authBaseURL,
   secret: process.env.BETTER_AUTH_SECRET,
 
   emailAndPassword: {

@@ -1,8 +1,11 @@
 import { authClient } from "./auth-client";
 import type { Event } from "@/types/event";
 
-const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL}`;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+if (!API_URL) {
+  throw new Error("NEXT_PUBLIC_API_URL is not configured");
+}
 
 interface ApiResponse<T> {
   success: boolean;
