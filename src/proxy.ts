@@ -1,8 +1,12 @@
 import { getSessionCookie } from "better-auth/cookies";
+import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { auth } from "./lib/auth";
 
-export function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
+
+
   if (getSessionCookie(request)) {
     return NextResponse.next();
   }
@@ -17,5 +21,9 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/manage-events/:path*", "/joined-events/:path*"],
+  matcher: [
+    "/manage-events/:path*",
+    "/joined-events/:path*",
+    "/my-events/:path*",
+  ],
 };

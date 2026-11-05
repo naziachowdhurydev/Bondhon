@@ -18,7 +18,6 @@ export type EventCreateInput = Pick<
   | "thumbnail"
   | "location"
   | "eventDate"
-  | "creator"
 >;
 
 export type EventUpdateInput = Pick<

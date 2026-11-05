@@ -84,11 +84,6 @@ const CreateEventPage = () => {
       thumbnail: thumbnail.trim(),
       location: location.trim(),
       eventDate: parsedEventDate.toISOString(),
-      creator: {
-        userId: user.id,
-        name: user.name,
-        email: user.email,
-      },
     };
 
     try {
@@ -256,9 +251,7 @@ const CreateEventPage = () => {
                     type="datetime-local"
                     value={eventDate}
                     min={minimumDateTime}
-                    onFocus={() =>
-                      setMinimumDateTime(getMinimumDateTime())
-                    }
+                    onFocus={() => setMinimumDateTime(getMinimumDateTime())}
                     onChange={(event) => setEventDate(event.target.value)}
                     className="w-full rounded-xl border border-border bg-background px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/15"
                     required
@@ -335,8 +328,8 @@ const CreateEventPage = () => {
               Make it meaningful
             </h2>
             <p className="mt-2 text-sm leading-6 text-muted">
-              Clear details help volunteers understand your cause and feel
-              ready to take part.
+              Clear details help volunteers understand your cause and feel ready
+              to take part.
             </p>
             <div className="mt-5 space-y-3 border-t border-primary/10 pt-5 text-sm text-muted">
               <p>Choose a welcoming, easy-to-find location.</p>

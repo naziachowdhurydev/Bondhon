@@ -13,6 +13,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
+import { authApi } from "@/lib/auth-api";
 import toast from "react-hot-toast";
 import ThemeToggle from "./ThemeToggle";
 
@@ -25,14 +26,52 @@ const navLinks = [
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [hasCreatedEvents, setHasCreatedEvents] = useState(false);
+
   const profileMenuRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
   const pathname = usePathname();
+
   const { data: session, isPending, error } = authClient.useSession();
 
   const user = session?.user;
 
+  // Check whether the logged-in user has created any events
+  useEffect(() => {
+    if (!user) return;
+
+    let isActive = true;
+
+    const checkCreatedEvents = async () => {
+      try {
+        const result = await authApi.getMyEvents();
+
+        if (isActive) {
+          setHasCreatedEvents(result.success && result.data.length > 0);
+        }
+      } catch (error) {
+        console.error("Failed to check created events:", error);
+
+        if (isActive) {
+          setHasCreatedEvents(false);
+        }
+      }
+    };
+
+    checkCreatedEvents();
+
+    return () => {
+      isActive = false;
+    };
+  }, [user?.id, pathname]);
+
+  // Show My Events only when the user has created an event
+  const displayedNavLinks = hasCreatedEvents
+    ? [...navLinks, { name: "My Events", href: "/my-events" }]
+    : navLinks;
+
+  // Close profile dropdown when clicking outside
   useEffect(() => {
     if (!isProfileOpen) return;
 
@@ -62,12 +101,17 @@ const Navbar = () => {
   console.log("Navbar user:", user);
   console.log("Session error:", error);
 
+  // Logout
   const handleLogout = async () => {
     try {
       await authClient.signOut();
+
+      setHasCreatedEvents(false);
+
       toast.success("Logged out successfully!");
       setIsProfileOpen(false);
       setIsMenuOpen(false);
+
       router.push("/");
       router.refresh();
     } catch {
@@ -91,7 +135,7 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-3 min-[900px]:flex xl:gap-5">
-          {navLinks.map((link) => {
+          {displayedNavLinks.map((link) => {
             const isActive =
               link.href === "/"
                 ? pathname === link.href
@@ -109,6 +153,7 @@ const Navbar = () => {
                 }`}
               >
                 {link.name}
+
                 {isActive && (
                   <span className="absolute right-1/2 -bottom-1 h-1 w-1 -translate-x-1/2 rounded-full bg-primary" />
                 )}
@@ -120,6 +165,7 @@ const Navbar = () => {
         {/* Desktop Authentication */}
         <div className="hidden items-center gap-2 min-[900px]:flex xl:gap-3">
           <ThemeToggle />
+
           {isPending ? (
             <div className="h-9 w-24 animate-pulse rounded-lg bg-muted-background" />
           ) : user ? (
@@ -220,7 +266,7 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="border-t border-border bg-card px-4 py-5 min-[900px]:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-2">
-            {navLinks.map((link) => {
+            {displayedNavLinks.map((link) => {
               const isActive =
                 link.href === "/"
                   ? pathname === link.href
