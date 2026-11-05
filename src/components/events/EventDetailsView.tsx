@@ -18,6 +18,11 @@ import {
 import type { Event, EventParticipant } from "@/types/event";
 import JoinEventButton from "./JoinEventButton";
 import { authClient } from "@/lib/auth-client";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar";
 
 interface EventDetailsViewProps {
   event: Event;
@@ -34,10 +39,19 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
     eventId: string;
     participants: EventParticipant[];
   } | null>(null);
-  const participants =
+  const eventParticipants =
     updatedParticipants?.eventId === event._id
       ? updatedParticipants.participants
       : (event.participants ?? []);
+  const participants = eventParticipants.map((participant) => {
+    const isCurrentUser =
+      participant.userId === user?.id ||
+      participant.email.toLowerCase() === user?.email.toLowerCase();
+
+    return isCurrentUser && !participant.image && user?.image
+      ? { ...participant, image: user.image }
+      : participant;
+  });
   const participantCount = participants.length;
   const eventDate = new Date(event.eventDate);
   const [currentTime, setCurrentTime] = useState<number | null>(null);
@@ -197,13 +211,20 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
                 {participants.length > 0 ? (
                   <div className="flex -space-x-2">
                     {participants.slice(0, 5).map((person, index) => (
-                      <div
+                      <Avatar
                         key={person.userId || person.email || index}
+                        size="default"
                         title={person.name}
-                        className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-card bg-accent-light text-primary"
+                        className="size-9 border-2 border-card bg-accent-light text-primary"
                       >
-                        <UserRound size={15} />
-                      </div>
+                        <AvatarImage
+                          src={person.image || undefined}
+                          alt={person.name}
+                        />
+                        <AvatarFallback className="bg-accent-light text-primary">
+                          <UserRound size={15} />
+                        </AvatarFallback>
+                      </Avatar>
                     ))}
                     {participantCount > 5 ? (
                       <span className="flex h-9 items-center rounded-full border-2 border-card bg-muted-background px-2 text-xs font-semibold text-muted">
@@ -225,9 +246,15 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
                       key={person.userId || person.email || index}
                       className="flex min-w-0 items-center gap-3"
                     >
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-muted-background text-muted">
-                        <UserRound size={16} />
-                      </span>
+                      <Avatar className="size-9 shrink-0 bg-muted-background text-muted">
+                        <AvatarImage
+                          src={person.image || undefined}
+                          alt={person.name}
+                        />
+                        <AvatarFallback className="bg-muted-background text-muted">
+                          <UserRound size={16} />
+                        </AvatarFallback>
+                      </Avatar>
                       <span className="truncate text-sm font-medium text-foreground">
                         {person.name}
                       </span>

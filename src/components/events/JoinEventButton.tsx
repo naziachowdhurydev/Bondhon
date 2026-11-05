@@ -51,7 +51,7 @@ const JoinEventButton = ({
   const handleJoin = async () => {
     try {
       setIsJoining(true);
-      const result = await authApi.joinEvent(eventId);
+      const result = await authApi.joinEvent(eventId, session?.user.image);
       onJoined(result.data);
       if (result.alreadyJoined) {
         toast("You have already joined this event.");

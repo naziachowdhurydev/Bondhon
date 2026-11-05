@@ -108,9 +108,10 @@ export const authApi = {
 
   getMyEvents: () => request<ApiResponse<Event[]>>("/api/events/my-events"),
 
-  joinEvent: (eventId: string) =>
+  joinEvent: (eventId: string, image?: string | null) =>
     request<JoinEventResponse>(`/api/joined-events/${eventId}`, {
       method: "POST",
+      body: JSON.stringify({ image }),
     }),
 
   getJoinedEvents: () =>
