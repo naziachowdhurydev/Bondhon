@@ -235,29 +235,6 @@ const EventDetailsView = ({ event }: EventDetailsViewProps) => {
                 )}
               </div>
 
-              {participants.length > 0 ? (
-                <ul className="mt-5 grid gap-3 border-t border-border pt-5 sm:grid-cols-2">
-                  {participants.slice(0, 6).map((person, index) => (
-                    <li
-                      key={person.userId || person.email || index}
-                      className="flex min-w-0 items-center gap-3"
-                    >
-                      <Avatar className="size-9 shrink-0 bg-muted-background text-muted">
-                        <AvatarImage
-                          src={person.image || undefined}
-                          alt={person.name}
-                        />
-                        <AvatarFallback className="bg-muted-background text-muted">
-                          <UserRound size={16} />
-                        </AvatarFallback>
-                      </Avatar>
-                      <span className="truncate text-sm font-medium text-foreground">
-                        {person.name}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
             </section>
           </div>
 
